@@ -603,9 +603,9 @@
     googleAppsScriptUrl: "https://script.google.com/macros/s/AKfycbzf1S_wtqE--3oMRWD8VBgfdyeJQj_YLzXVZ22N0M4-awK7u3iXElTIhRGvpW7x9Mrv/exec",
     eventDate: "2026-10-14T12:00:00+09:00",
     eventEnd: "2026-10-14T18:50:00+09:00",
-    localStorageKey: "yc2026_physical_challenge_submissions_v14",
-    pendingStorageKey: "yc2026_physical_challenge_pending_v13",
-    clientVersion: "v13"
+    localStorageKey: "yc2026_physical_challenge_submissions_v15",
+    pendingStorageKey: "yc2026_physical_challenge_pending_v15",
+    clientVersion: "v15"
   };
 
   const $ = (s, root=document) => root.querySelector(s);
@@ -634,7 +634,7 @@
   window.addEventListener('hashchange', route);
   route();
 
-  $('#submitModeNotice').textContent = '입력한 내용을 확인한 뒤 신청을 완료해주세요. 중복 접수와 정원은 자동으로 확인됩니다.';
+  $('#submitModeNotice').textContent = '입력한 내용을 확인한 뒤 신청을 완료해주세요. 정원과 접수 상태는 자동으로 확인됩니다.';
 
   $('#shareBtn').addEventListener('click', async () => {
     const data = {title: document.title, text: '2026 연천군 Physical Challenge Running', url: location.href};
@@ -802,21 +802,66 @@
     el.classList.add('hidden');
   }
 
-  window.addEventListener('message', (event) => {
-    const data = event.data;
-    if(!data || data.source !== 'YC_REGISTRATION_RESPONSE' || !gasPending) return;
-    if(data.requestId !== gasPending.requestId) return;
+  function settleGasPending(data){
+    if(!data || data.source !== 'YC_REGISTRATION_RESPONSE' || !gasPending) return false;
+    if(data.requestId !== gasPending.requestId) return false;
     const pending = gasPending;
     gasPending = null;
+    pending.cancelled = true;
     clearTimeout(pending.timer);
     if(data.ok){
       pending.resolve(data);
-    }else{
+    }else if(!data.pending){
       const err = new Error(data.message || '접수 처리 중 오류가 발생했습니다.');
       err.serverData = data;
       pending.reject(err);
+    }else{
+      gasPending = pending;
+      return false;
     }
+    return true;
+  }
+
+  window.addEventListener('message', (event) => {
+    settleGasPending(event.data);
   });
+
+  function jsonpStatus(requestId){
+    return new Promise((resolve, reject) => {
+      const callback = `__ycStatus_${Date.now()}_${Math.random().toString(36).slice(2)}`;
+      const script = document.createElement('script');
+      let finished = false;
+      let timer = null;
+      const cleanup = () => {
+        if(finished) return;
+        finished = true;
+        clearTimeout(timer);
+        script.remove();
+        try{ delete window[callback]; }catch(e){ window[callback] = undefined; }
+      };
+      window[callback] = (data) => { cleanup(); resolve(data); };
+      script.onerror = () => { cleanup(); reject(new Error('접수 상태 확인에 실패했습니다.')); };
+      const qs = new URLSearchParams({action:'status', requestId, callback, _:String(Date.now())});
+      script.src = `${CONFIG.googleAppsScriptUrl}?${qs.toString()}`;
+      script.async = true;
+      document.body.appendChild(script);
+      timer = setTimeout(() => { cleanup(); reject(new Error('접수 상태 확인 시간이 초과되었습니다.')); }, 6000);
+    });
+  }
+
+  async function pollGasStatus(requestId){
+    const started = Date.now();
+    while(gasPending && gasPending.requestId === requestId && Date.now() - started < 28000){
+      await new Promise(r => setTimeout(r, 900));
+      if(!gasPending || gasPending.requestId !== requestId) return;
+      try{
+        const data = await jsonpStatus(requestId);
+        if(data && !data.pending && settleGasPending(data)) return;
+      }catch(e){
+        console.warn('status poll', e);
+      }
+    }
+  }
 
   function submitViaAppsScript(record, requestId){
     return new Promise((resolve, reject) => {
@@ -831,11 +876,11 @@
 
       const timer = setTimeout(() => {
         if(gasPending?.requestId === requestId) gasPending = null;
-        const err = new Error('서버 응답이 지연되고 있습니다. 같은 내용으로 다시 시도하면 중복 접수 없이 확인됩니다.');
+        const err = new Error('접수 상태 확인이 지연되고 있습니다. 잠시 후 같은 내용으로 다시 시도해주세요. 이미 저장된 경우 중복 저장되지 않습니다.');
         err.code = 'TIMEOUT';
         reject(err);
-      }, 25000);
-      gasPending = {requestId, resolve, reject, timer};
+      }, 32000);
+      gasPending = {requestId, resolve, reject, timer, cancelled:false};
 
       const form = document.createElement('form');
       form.method = 'POST';
@@ -862,7 +907,10 @@
       });
       document.body.appendChild(form);
       form.submit();
-      setTimeout(() => form.remove(), 1200);
+      setTimeout(() => form.remove(), 1500);
+
+      // iframe의 postMessage가 브라우저에서 차단되어도 GET/JSONP 상태조회로 완료를 확정합니다.
+      pollGasStatus(requestId);
     });
   }
 
