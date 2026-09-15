@@ -1,0 +1,934 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0b0f0d" />
+  <meta name="description" content="2026 연천군 Physical Challenge Running 공식 모바일 SPA" />
+  <title>2026 YEONCHEON PHYSICAL CHALLENGE</title>
+  <style>
+    :root{
+      --bg:#0b0f0d;
+      --bg-2:#101610;
+      --paper:#f7f5ef;
+      --paper-2:#f0eee6;
+      --card:#ffffff;
+      --ink:#0f1411;
+      --ink-soft:#5e655d;
+      --line:#e7e9e1;
+      --line-dark:rgba(255,255,255,.08);
+      --lime:#d6ff52;
+      --lime-soft:#edf8cf;
+      --orange:#ff6e2f;
+      --olive:#6f7b62;
+      --max:430px;
+      --radius:30px;
+      --shadow:0 28px 60px rgba(0,0,0,.18);
+      --shadow-soft:0 14px 28px rgba(0,0,0,.04);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth;background:radial-gradient(circle at 20% 10%,rgba(214,255,82,.09),transparent 24%),radial-gradient(circle at 88% 78%,rgba(255,110,47,.08),transparent 24%),#090d0a}
+    body{margin:0;font-family:Inter,Pretendard,"Apple SD Gothic Neo","Noto Sans KR",system-ui,-apple-system,sans-serif;color:var(--ink);background:transparent;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+    a{text-decoration:none;color:inherit}
+    button,input,select,textarea{font:inherit}
+    button{cursor:pointer}
+    .shell{width:min(var(--max),100vw);min-height:100dvh;margin:0 auto;background:var(--paper);position:relative;overflow:hidden;box-shadow:var(--shadow)}
+    @media (max-width:430px){.shell{box-shadow:none}html{background:var(--paper)}}
+    .noise{position:fixed;inset:0;pointer-events:none;opacity:.1;z-index:1;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.16'/%3E%3C/svg%3E");mix-blend-mode:multiply}
+    .topbar{position:sticky;top:0;z-index:50;padding:14px 16px 10px;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(180deg,rgba(247,245,239,.95),rgba(247,245,239,.86) 72%,transparent);backdrop-filter:blur(12px)}
+    .brand{display:flex;align-items:center;gap:10px}
+    .brand-badge{width:36px;height:36px;border-radius:13px;background:linear-gradient(135deg,#111611,#0b0f0d);display:grid;place-items:center;color:var(--lime);font-size:11px;font-weight:1000;letter-spacing:.04em;box-shadow:inset 0 0 0 1px rgba(255,255,255,.07)}
+    .brand-copy{line-height:1.04}.brand-copy b{display:block;font-size:12px;letter-spacing:-.02em}.brand-copy span{font-size:10px;color:#70786e;font-weight:700}
+    .icon-btn{width:40px;height:40px;border:0;border-radius:14px;background:#fff;display:grid;place-items:center;box-shadow:0 10px 22px rgba(0,0,0,.05)}
+
+    .route{display:none;min-height:calc(100dvh - 64px);padding-bottom:110px;position:relative;z-index:2}
+    .route.active{display:block;animation:fade .24s ease}
+    @keyframes fade{from{opacity:.25;transform:translateY(7px)}to{opacity:1;transform:none}}
+
+    .page-hero{padding:8px 16px 0}
+    .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:900;letter-spacing:.12em;text-transform:uppercase}
+    .dot{width:8px;height:8px;border-radius:50%;background:var(--orange);box-shadow:0 0 0 5px rgba(255,110,47,.12)}
+    .page-title{margin:8px 0 0;font-size:35px;line-height:.94;letter-spacing:-.065em;font-weight:1000}
+    .page-desc{margin:12px 0 0;font-size:13px;line-height:1.68;color:#6f766e;word-break:keep-all}
+
+    .hero{margin:4px 12px 0;background:linear-gradient(180deg,#0b0f0d 0%,#101611 100%);color:#eef2ea;border-radius:36px;overflow:hidden;position:relative;box-shadow:0 24px 60px rgba(8,12,9,.30)}
+    .hero:before{content:"";position:absolute;right:-44px;top:-26px;width:240px;height:240px;border-radius:50%;border:1px solid rgba(214,255,82,.18);box-shadow:0 0 0 42px rgba(214,255,82,.04),0 0 0 82px rgba(214,255,82,.02)}
+    .hero:after{content:"";position:absolute;left:-28px;bottom:-55px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(255,110,47,.11),rgba(255,110,47,0) 70%);filter:blur(14px)}
+    .hero-inner{position:relative;z-index:2;padding:22px 20px 20px}
+    .hero-pill{display:inline-flex;align-items:center;gap:9px;padding:10px 14px;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);font-size:11px;font-weight:900;backdrop-filter:blur(8px)}
+    .hero-pill .live{width:10px;height:10px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 4px rgba(214,255,82,.12)}
+    .hero-kicker{margin-top:34px;font-size:12px;font-weight:900;color:#d3d8d0}
+    .hero-title{margin:10px 0 0;font-size:58px;line-height:.86;letter-spacing:-.075em;font-weight:1000}
+    .hero-title .ghost{color:transparent;-webkit-text-stroke:1.35px rgba(238,242,234,.78)}
+    .hero-copy{margin:18px 0 0;max-width:316px;font-size:14px;line-height:1.68;color:#ccd2ca;word-break:keep-all}
+    .hero-copy b{color:#fff}
+    .hero-grid{margin-top:22px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .hero-data{padding:16px 14px;border-radius:22px;background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.025));border:1px solid rgba(255,255,255,.08)}
+    .hero-data small{display:block;font-size:9px;color:#bfc6bc;font-weight:800;letter-spacing:.12em}
+    .hero-data strong{display:block;margin-top:9px;font-size:21px;line-height:1.08;letter-spacing:-.045em;color:#fff}
+    .hero-data p{margin:6px 0 0;font-size:12px;line-height:1.5;color:#b3baaf}
+    .hero-wide{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .hero-wide .mini{text-align:left;padding:16px 14px;border-radius:22px;background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.025));border:1px solid rgba(255,255,255,.08);min-height:112px;display:flex;flex-direction:column;justify-content:space-between}
+    .hero-wide .mini.wide{grid-column:1/-1;min-height:auto}
+    .hero-wide .mini.wide b{font-size:22px;line-height:1.1}
+    .hero-wide .mini small{display:block;font-size:9px;color:#bfc6bc;font-weight:800;letter-spacing:.12em}
+    .hero-wide .mini b{display:block;margin-top:8px;font-size:24px;line-height:1.02;color:#fff;letter-spacing:-.05em}
+    .hero-wide .mini span{display:block;margin-top:8px;font-size:11px;color:#b7beb4;line-height:1.48;font-weight:800}
+    .cta-row{margin-top:18px;display:grid;grid-template-columns:1fr 72px;gap:10px}
+    .btn-primary{min-height:68px;border:0;border-radius:22px;background:var(--lime);color:#111611;font-size:18px;font-weight:1000;letter-spacing:-.03em;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 16px 36px rgba(214,255,82,.15)}
+    .btn-secondary{min-height:68px;border-radius:22px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);color:#edf2ea;display:grid;place-items:center}
+
+    .section{padding:34px 16px 0}
+    .cards-2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+    .card{background:#fff;border:1px solid var(--line);border-radius:24px;padding:16px;box-shadow:var(--shadow-soft);position:relative;overflow:hidden}
+    .card.soft{background:linear-gradient(180deg,#fff,#fcfcf8)}
+    .card small{display:block;font-size:10px;font-weight:900;letter-spacing:.12em;color:#899087}
+    .card strong{display:block;margin-top:13px;font-size:19px;line-height:1.18;letter-spacing:-.04em}
+    .card:nth-child(4) strong{font-size:18px;line-height:1.24}
+    .card p{margin:7px 0 0;font-size:11px;line-height:1.55;color:#727971;max-width:146px}
+    .card:after{content:"";position:absolute;right:-20px;bottom:-20px;width:92px;height:92px;border-radius:50%;background:radial-gradient(circle,rgba(237,248,207,.95),rgba(237,248,207,0) 72%)}
+    .statement{margin-top:14px;background:linear-gradient(180deg,#eef7d8,#e8f1d3);border:1px solid #dce6c1;border-radius:30px;padding:20px 18px;position:relative;overflow:hidden}
+    .statement:after{content:"MOVE";position:absolute;right:-10px;bottom:6px;font-size:52px;line-height:1;font-weight:1000;letter-spacing:-.08em;color:rgba(17,22,17,.06)}
+    .statement b{display:block;font-size:11px;font-weight:1000;letter-spacing:.1em;color:#57644b}
+    .statement h3{margin:8px 0 0;font-size:29px;line-height:1.04;letter-spacing:-.055em}
+    .statement p{margin:10px 0 0;font-size:12px;line-height:1.72;color:#617159;max-width:310px}
+    .accent-banner{margin-top:14px;background:linear-gradient(135deg,#111611 0%,#162019 45%,#ff6e2f 135%);border-radius:30px;color:#fff;padding:18px;position:relative;overflow:hidden}
+    .accent-banner:before{content:"";position:absolute;right:-20px;top:-10px;width:145px;height:145px;border-radius:50%;border:1px solid rgba(255,255,255,.16);box-shadow:0 0 0 26px rgba(255,255,255,.04),0 0 0 54px rgba(255,255,255,.025)}
+    .accent-banner small{font-size:10px;letter-spacing:.14em;font-weight:900;color:#d5d8d1}
+    .accent-banner strong{display:block;margin-top:8px;font-size:34px;line-height:1;letter-spacing:-.06em}
+    .accent-banner p{margin:6px 0 0;font-size:12px;line-height:1.55;color:#d0d5cf;max-width:280px}
+    .footer-note{padding:28px 16px 8px;font-size:9px;line-height:1.65;color:#8a9188}.footer-note b{color:#4f564f}
+
+    .course-map{margin-top:16px;border-radius:30px;overflow:hidden;background:linear-gradient(180deg,#111611,#151b16);color:#eef2ea;box-shadow:0 20px 40px rgba(0,0,0,.14)}
+    .course-map .copy{padding:18px}
+    .course-map small{font-size:10px;letter-spacing:.14em;font-weight:900;color:#bac1b7}
+    .course-map h3{margin:8px 0 0;font-size:30px;line-height:1.02;letter-spacing:-.055em}
+    .course-map p{margin:10px 0 0;font-size:12px;line-height:1.65;color:#c4cac1}
+    .course-visual{height:230px;background:linear-gradient(180deg,#121813,#182018)}
+    .course-visual svg{display:block;width:100%;height:100%}
+    .metric-panel{margin-top:14px;background:#fff;border:1px solid var(--line);border-radius:28px;padding:18px;box-shadow:var(--shadow-soft)}
+    .metric-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px}
+    .metric{background:#f4f6ef;border-radius:18px;padding:12px 10px}
+    .metric b{display:block;font-size:21px;line-height:1;letter-spacing:-.05em}
+    .metric span{display:block;margin-top:6px;font-size:10px;line-height:1.3;color:#788077;font-weight:800}
+    .obstacle-list{display:grid;gap:12px;margin-top:18px}
+    .obstacle{background:#fff;border:1px solid var(--line);border-radius:24px;padding:16px;box-shadow:var(--shadow-soft);display:flex;gap:12px;justify-content:space-between;align-items:flex-start}
+    .obstacle-info{flex:1}
+    .obstacle-num{width:42px;height:42px;border-radius:14px;background:var(--lime-soft);display:grid;place-items:center;font-size:12px;font-weight:1000;color:#223019}
+    .obstacle h4{margin:10px 0 0;font-size:20px;line-height:1.06;letter-spacing:-.05em}
+    .obstacle p{margin:8px 0 0;font-size:11px;line-height:1.6;color:#737a72}
+    .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.chip{padding:7px 10px;border-radius:999px;background:#f4f5f0;border:1px solid #eceee7;font-size:10px;font-weight:900;color:#5e665d;letter-spacing:.04em}
+    .iconbox{width:72px;height:72px;border-radius:18px;background:linear-gradient(180deg,#f6f9f1,#ebf1e2);border:1px solid #dde4d4;display:grid;place-items:center;flex:0 0 auto}.iconbox svg{width:48px;height:48px}
+
+    .course-image-wrap{height:auto;position:relative;overflow:hidden;cursor:zoom-in;background:#0e140f}
+    .course-image-wrap img{display:block;width:100%;height:auto;aspect-ratio:2048/1535;object-fit:cover}
+    .course-image-overlay{position:absolute;left:0;right:0;bottom:0;padding:30px 15px 13px;display:flex;align-items:flex-end;justify-content:space-between;gap:10px;background:linear-gradient(180deg,transparent,rgba(7,11,8,.86));color:#fff;pointer-events:none}
+    .course-image-overlay span{font-size:11px;font-weight:900;letter-spacing:-.02em}
+    .course-image-overlay b{font-size:10px;color:var(--lime);letter-spacing:.02em}
+    .image-modal{position:fixed;inset:0;z-index:150;background:rgba(5,8,6,.94);display:none;align-items:center;justify-content:center;padding:18px;backdrop-filter:blur(12px)}
+    .image-modal.show{display:flex;animation:modalIn .18s ease}
+    @keyframes modalIn{from{opacity:0}to{opacity:1}}
+    .image-modal-card{width:min(100%,920px);position:relative}
+    .image-modal-card img{display:block;width:100%;height:auto;max-height:82vh;object-fit:contain;border-radius:20px;box-shadow:0 24px 80px rgba(0,0,0,.45)}
+    .modal-close{position:absolute;right:8px;top:8px;width:42px;height:42px;border:1px solid rgba(255,255,255,.18);border-radius:14px;background:rgba(10,14,11,.84);color:#fff;display:grid;place-items:center;font-size:20px;backdrop-filter:blur(8px)}
+    .modal-caption{margin-top:10px;text-align:center;color:#c9d0c7;font-size:11px;font-weight:800}
+    .timeline{display:grid;gap:10px;margin-top:18px}.timeline-item{display:grid;grid-template-columns:74px 1fr;gap:10px}
+    .time{min-height:96px;background:#101611;color:#fff;border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:1000;letter-spacing:-.04em}
+    .time-card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:14px;box-shadow:var(--shadow-soft);position:relative;overflow:hidden}.time-card:before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:linear-gradient(180deg,var(--lime),var(--orange));border-radius:10px}.time-card b{display:block;padding-left:6px;font-size:15px;letter-spacing:-.03em}.time-card p{margin:6px 0 0;padding-left:6px;font-size:11px;line-height:1.6;color:#747b73}
+    .prize-grid{display:grid;gap:12px;margin-top:16px}.prize-card{background:#fff;border:1px solid var(--line);border-radius:24px;padding:16px;box-shadow:var(--shadow-soft)}.prize-head{display:flex;align-items:center;justify-content:space-between;font-size:13px;font-weight:1000}.badge{padding:6px 10px;border-radius:999px;background:#f1f4ea;color:#516046;font-size:10px;font-weight:900}.rank{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-top:10px;padding-top:10px;border-top:1px solid #eff0ea;font-size:12px}.rank-left{min-width:54px;font-weight:900}.rank-left small{display:block;margin-top:3px;font-size:9px;color:#8a9188;font-weight:800}.rank-right{text-align:right;min-width:0}.rank-right b{display:block;font-size:14px;letter-spacing:-.02em}.rank-right small{display:block;margin-top:4px;font-size:10px;line-height:1.4;color:#5f6a59;font-weight:900}.prize-total{margin-top:12px;padding:13px 14px;border-radius:18px;background:linear-gradient(135deg,#111611,#1b251d);color:#fff;display:flex;align-items:center;justify-content:space-between;gap:12px}.prize-total span{font-size:10px;font-weight:900;letter-spacing:.1em;color:#bfc6bc}.prize-total b{font-size:22px;letter-spacing:-.05em}
+
+    .guide-card{margin-top:16px;background:linear-gradient(180deg,#0f1411,#121813);color:#eef2ea;border-radius:32px;padding:20px}.guide-card h3{margin:8px 0 0;font-size:30px;line-height:1;letter-spacing:-.055em}.guide-list{display:grid;gap:10px;margin-top:16px}.guide-item{display:flex;gap:10px;align-items:flex-start;padding:12px;border-radius:18px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06)}.guide-item i{width:26px;height:26px;border-radius:10px;display:grid;place-items:center;background:rgba(214,255,82,.12);color:var(--lime);font-style:normal;font-weight:1000;flex:0 0 auto}.guide-item span{font-size:12px;line-height:1.56;color:#d3d8d1}
+    .location-card{margin-top:16px;background:#fff;border:1px solid var(--line);border-radius:28px;overflow:hidden;box-shadow:var(--shadow-soft)}.map-visual{height:208px;background:linear-gradient(180deg,#eef4e6,#e4ecd7)}.map-visual svg{display:block;width:100%;height:100%}.location-copy{padding:16px}.location-copy small{font-size:10px;font-weight:900;letter-spacing:.12em;color:#889186}.location-copy h3{margin:8px 0 0;font-size:20px;letter-spacing:-.04em}.location-copy p{margin:6px 0 0;font-size:11px;line-height:1.56;color:#747c74}.quick-btns{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}.soft-btn{min-height:48px;border:1px solid #e3e6dd;border-radius:16px;background:#fafbf8;color:#273027;font-size:11px;font-weight:900}
+    details{background:#fff;border:1px solid var(--line);border-radius:20px;padding:0 14px;box-shadow:0 8px 18px rgba(0,0,0,.02)} details+details{margin-top:8px} summary{list-style:none;padding:16px 0;display:flex;align-items:center;justify-content:space-between;font-size:12px;font-weight:900;cursor:pointer} summary::-webkit-details-marker{display:none} summary:after{content:"+";font-size:18px;color:#4f574f} details[open] summary:after{content:"–"} details p{margin:-4px 0 14px;font-size:11px;line-height:1.68;color:#757d75}
+
+    .form-wrap{padding:0 16px}.progress{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-top:16px}.progress span{height:5px;border-radius:999px;background:#dbddd5}.progress span.on{background:linear-gradient(90deg,var(--lime),#bedc55)}
+    .form-card{margin-top:16px;background:#fff;border:1px solid var(--line);border-radius:30px;padding:18px;box-shadow:var(--shadow-soft)}.form-card h3{margin:0;font-size:26px;letter-spacing:-.055em}.helper{margin:8px 0 0;font-size:11px;line-height:1.65;color:#777f77}
+    .choice-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px}.choice{border:1px solid #dfe2da;background:#fff;border-radius:20px;min-height:106px;padding:14px;text-align:left}.choice.active{border-color:#111611;box-shadow:inset 0 0 0 1px #111611;background:#f8f9f5}.choice b{display:block;font-size:14px}.choice span{display:block;margin-top:5px;font-size:10px;line-height:1.45;color:#7b827b}
+    .field{margin-top:13px}.field label{display:block;font-size:10px;color:#687067;font-weight:900;margin-bottom:7px}.input{width:100%;height:50px;border-radius:16px;border:1px solid #dfe2db;background:#fafbf8;padding:0 13px;font-size:13px;outline:none}.input:focus{border-color:#a4af9c;box-shadow:0 0 0 3px rgba(111,123,98,.12)}.row2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .course-auto{margin-top:14px;padding:14px;border-radius:18px;background:#eef4e6;border:1px solid #dbe4d0;display:flex;align-items:center;justify-content:space-between;gap:10px}.course-auto span{font-size:10px;color:#6d7768}.course-auto b{font-size:13px;letter-spacing:-.02em}
+    .agree{display:flex;gap:10px;align-items:flex-start;margin-top:14px}.agree input{width:18px;height:18px;margin-top:1px;accent-color:#111611}.agree label{font-size:11px;line-height:1.58;color:#616861}
+    .notice{margin-top:12px;padding:12px;border-radius:16px;background:#f3f5ee;color:#727972;font-size:10px;line-height:1.58}
+    .submit-error{margin-top:12px;padding:13px 14px;border-radius:16px;background:#fff0eb;border:1px solid #ffd2c2;color:#9a3f1d;font-size:11px;line-height:1.58;font-weight:800}.submit-error.hidden{display:none!important}
+    .form-actions{display:grid;grid-template-columns:92px 1fr;gap:8px;margin-top:18px}.btn-ghost,.btn-submit{min-height:52px;border-radius:16px;font-size:12px;font-weight:1000}.btn-ghost{background:#fff;border:1px solid #d9ddd5;color:#212722}.btn-submit{background:#111611;border:0;color:#fff}.form-step.hidden{display:none!important}
+    .receipt{display:none;margin-top:16px;background:linear-gradient(180deg,#0d120e,#121913);color:#eef2ea;border-radius:34px;padding:22px;text-align:center;box-shadow:0 20px 44px rgba(0,0,0,.15)}.receipt.show{display:block}.stamp{width:84px;height:84px;border-radius:50%;margin:0 auto;background:var(--lime);color:#101410;display:grid;place-items:center;font-size:28px;font-weight:1000;transform:rotate(-8deg)}.receipt h3{margin:18px 0 0;font-size:32px;line-height:.96;letter-spacing:-.06em}.receipt p{margin:12px 0 0;font-size:11px;line-height:1.65;color:#c3c8c1}.receipt-id{margin-top:14px;background:rgba(255,255,255,.06);border-radius:16px;padding:13px;font-size:11px}.receipt .btn-primary{margin-top:16px;width:100%;min-height:58px;font-size:15px;border-radius:18px}
+
+    .bottom-dock{position:fixed;left:50%;bottom:0;transform:translateX(-50%);width:min(var(--max),100vw);padding:8px 10px max(8px,env(safe-area-inset-bottom));background:linear-gradient(180deg,transparent,rgba(247,245,239,.92) 26%,rgba(247,245,239,.99));z-index:70}.dock{height:66px;border-radius:24px;background:rgba(16,22,17,.98);box-shadow:0 18px 34px rgba(0,0,0,.24);backdrop-filter:blur(16px);padding:5px;display:grid;grid-template-columns:repeat(5,1fr);align-items:center}.dock a{height:56px;border-radius:18px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:8px;font-weight:800;color:#96a095}.dock a svg{width:18px;height:18px;stroke-width:1.9}.dock a.active{background:#232a23;color:#fff}.dock a.apply-tab{background:var(--lime);color:#101610;margin-left:3px}
+    .toast{position:fixed;left:50%;bottom:94px;transform:translate(-50%,20px);width:min(390px,calc(100vw - 30px));padding:14px 15px;background:#101511;color:#fff;border-radius:16px;font-size:11px;box-shadow:0 18px 40px rgba(0,0,0,.26);opacity:0;pointer-events:none;transition:.25s;z-index:99}.toast.show{opacity:1;transform:translate(-50%,0)}
+  
+
+    /* v10 polish override */
+    .topbar{padding:15px 18px 10px;background:linear-gradient(180deg,rgba(247,245,239,.96),rgba(247,245,239,.88) 72%,transparent);backdrop-filter:blur(14px)}
+    .page-hero{padding:10px 18px 0}
+    .page-title{font-size:36px;line-height:.92;letter-spacing:-.062em}
+    .page-desc{max-width:326px;line-height:1.74}
+
+    .hero{margin:6px 14px 0;border-radius:38px}
+    .hero-inner{padding:25px 22px 24px}
+    .hero-title{font-size:56px;line-height:.89;letter-spacing:-.07em}
+    .hero-copy{max-width:308px;line-height:1.68}
+    .hero-grid{margin-top:24px;gap:12px}
+    .hero-data{padding:18px 16px;min-height:124px;border-radius:24px}
+    .hero-data strong{margin-top:10px;font-size:20px;line-height:1.14;letter-spacing:-.038em}
+    .hero-data p{font-size:12px;line-height:1.56}
+    .hero-wide{gap:12px}
+    .hero-wide .mini{padding:17px 16px;min-height:114px;border-radius:24px}
+    .hero-wide .mini b{line-height:1.04;letter-spacing:-.048em}
+    .hero-wide .mini span{line-height:1.52}
+
+    .section{padding:40px 18px 0}
+    .section-title{line-height:.94;letter-spacing:-.058em}
+    .section-copy{line-height:1.72}
+    .cards-2{gap:12px;margin-top:18px}
+    .card{padding:18px;min-height:154px;border-radius:26px;display:flex;flex-direction:column;justify-content:flex-start}
+    .card strong{line-height:1.22;letter-spacing:-.036em}
+    .card p{margin-top:9px;line-height:1.62;max-width:none}
+    .card:nth-child(4) strong{line-height:1.26}
+
+    .statement{margin-top:16px;padding:22px 20px;border-radius:32px}
+    .statement h3{font-size:30px;line-height:1.06;letter-spacing:-.052em}
+    .statement p{line-height:1.74;max-width:312px}
+    .accent-banner{margin-top:16px;padding:20px;border-radius:32px}
+
+    .course-map{margin-top:18px;border-radius:32px}
+    .course-map .copy{padding:20px}
+    .metric-panel{margin-top:16px;padding:20px;border-radius:30px}
+    .metric-grid{gap:10px;margin-top:16px}
+    .metric{padding:13px 10px;border-radius:20px}
+    .obstacle-list{gap:14px;margin-top:20px}
+    .obstacle{padding:18px;gap:14px;border-radius:26px}
+    .obstacle h4{line-height:1.08}
+    .obstacle p{line-height:1.64}
+
+    .timeline{gap:12px;margin-top:20px}
+    .timeline-item{grid-template-columns:76px 1fr;gap:10px}
+    .time{min-height:98px;border-radius:22px}
+    .time-card{padding:16px;border-radius:24px}
+    .time-card b{padding-left:8px;line-height:1.35;letter-spacing:-.028em}
+    .time-card p{padding-left:8px;line-height:1.62}
+
+    .prize-grid{gap:14px;margin-top:18px}
+    .prize-card{padding:18px;border-radius:26px}
+    .prize-head{gap:12px}
+    .badge{white-space:nowrap}
+    .rank-right b{letter-spacing:-.042em}
+    .rank-right span{line-height:1.45}
+
+    .guide-card{margin-top:18px;padding:22px;border-radius:34px}
+    .guide-card h3{line-height:1.04;letter-spacing:-.052em}
+    .guide-list{gap:12px;margin-top:18px}
+    .guide-item{padding:13px}
+    .guide-item span{line-height:1.58}
+
+    .location-card{margin-top:18px;border-radius:30px}
+    .location-copy{padding:18px}
+    .location-copy h3{font-size:21px}
+    .location-copy p{line-height:1.6}
+    .quick-btns{gap:10px;margin-top:14px}
+    .soft-btn{min-height:50px;border-radius:18px}
+
+    .form-wrap{padding:0 18px}
+    .progress{gap:6px;margin-top:18px}
+    .form-card{margin-top:18px;padding:20px;border-radius:32px}
+    .form-card h3{letter-spacing:-.05em}
+    .helper{line-height:1.68}
+    .choice-grid{gap:10px;margin-top:18px}
+    .choice{min-height:112px;padding:16px;border-radius:22px}
+    .choice b{letter-spacing:-.02em}
+    .choice span{margin-top:6px;line-height:1.5}
+    .field{margin-top:14px}
+    .field label{margin-bottom:8px}
+    .input{height:52px;padding:0 14px;border-radius:17px}
+    .row2{gap:10px}
+    .form-actions{gap:10px;margin-top:20px}
+    .btn-ghost,.btn-submit{min-height:54px;border-radius:18px}
+
+    .entry-note{margin-top:16px;padding:14px 16px;border-radius:18px;background:#f4f6ef;border:1px solid #e4e8dd;display:flex;justify-content:space-between;align-items:center;gap:10px}
+    .entry-note span{font-size:10px;color:#6e776d;font-weight:900;letter-spacing:.04em}
+    .entry-note b{font-size:13px;letter-spacing:-.02em;color:#1f2621}
+    .team-meta{margin-top:4px;padding:16px;border:1px solid #e6e9e0;border-radius:24px;background:#fbfcf9}
+    .team-meta-title{font-size:12px;font-weight:1000;letter-spacing:.04em;color:#232923;margin-bottom:2px}
+    .field-caption{display:block;margin-top:7px;font-size:10px;line-height:1.5;color:#7a8278}
+    .member-list{display:grid;gap:12px;margin-top:14px}
+    .member-card{padding:16px;border-radius:24px;background:#fff;border:1px solid #e6e9e0;box-shadow:0 10px 20px rgba(0,0,0,.03)}
+    .member-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+    .member-head b{font-size:14px;letter-spacing:-.02em}
+    .member-no{display:inline-grid;place-items:center;min-width:34px;height:28px;padding:0 10px;border-radius:999px;background:#f0f4e6;color:#40523a;font-size:11px;font-weight:1000}
+    .team-tip{margin-top:12px;padding:12px 14px;border-radius:16px;background:#f4f6ef;color:#6d756c;font-size:11px;line-height:1.6}
+    .conditional.hidden{display:none!important}
+
+    .receipt{border-radius:36px;padding:24px}
+    .bottom-dock{padding:8px 12px max(10px,env(safe-area-inset-bottom))}
+    .dock{height:68px;border-radius:26px;padding:6px}
+
+    @media (max-width:390px){
+      .page-title{font-size:34px}
+      .hero-title{font-size:52px}
+      .hero-data strong{font-size:18px}
+      .card{min-height:148px}
+      .metric-grid{grid-template-columns:repeat(2,1fr)}
+    }
+
+</style>
+</head>
+<body>
+<div class="shell">
+  <div class="noise"></div>
+  <header class="topbar">
+    <a href="#home" class="brand" aria-label="홈으로">
+      <span class="brand-badge">YC26</span>
+      <span class="brand-copy"><b>PHYSICAL CHALLENGE</b><span>YEONCHEON 2026</span></span>
+    </a>
+    <button class="icon-btn" id="shareBtn" aria-label="공유">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M5 12v7h14v-7"/></svg>
+    </button>
+  </header>
+
+  <main class="route active" data-route="home">
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="hero-pill"><span class="live"></span><span id="ddayText">D-31 · 2026.10.14 · 연천종합운동장</span></div>
+        <div class="hero-kicker">제77회 국군의 날 기념</div>
+        <h1 class="hero-title">PHYSICAL<br><span class="ghost">CHALLENGE</span><br>RUNNING</h1>
+        <p class="hero-copy"><b>군 체력 기반 미션형 장애물 러닝.</b> 달리고, 넘고, 버티고, 완주하는 연천의 새로운 피지컬 챌린지.</p>
+
+        <div class="hero-grid">
+          <div class="hero-data"><small>DATE</small><strong>2026.10.14</strong><p>12:00 집결 · 18:50 종료</p></div>
+          <div class="hero-data"><small>LOCATION</small><strong>연천종합운동장</strong><p>경기도 연천군 연천읍<br>문화로 150</p></div>
+          <div class="hero-wide">
+            <div class="mini"><small>ENTRY SCALE</small><b>250여명</b><span>내외 모집 규모</span></div>
+            <div class="mini"><small>OBSTACLES</small><b>8개</b><span>장애물 미션 코스</span></div>
+            <div class="mini wide"><small>ENTRY & BENEFIT</small><b>참가비 20,000원</b><span>푸드코트 이용권 1만원 제공<br>연천쌀 1kg 제공</span></div>
+          </div>
+        </div>
+
+        <div class="cta-row">
+          <a class="btn-primary" href="#apply">참가 신청하기 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14M14 7l5 5-5 5"/></svg></a>
+          <button class="btn-secondary" id="calendarBtnHero" aria-label="일정 저장"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/></svg></button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <span class="eyebrow"><span class="dot"></span>EVENT SNAPSHOT</span>
+      <h2 class="page-title">챌린지<br>핵심 정보.</h2>
+      <p class="page-desc">대회 일정, 참가 대상, 운영 방식, 참가 혜택과 시상 정보를 한눈에 확인하세요.</p>
+
+      <div class="cards-2">
+        <article class="card soft"><small>TARGET</small><strong>연천군 관내<br>소속 부대 군인</strong><p>실전형 체력 기반 참가 프로그램</p></article>
+        <article class="card soft"><small>FORMAT</small><strong>개인전 +<br>계주 단체전</strong><p>2인 1조 출발 · 계주 운영 예정</p></article>
+        <article class="card soft"><small>PROGRAM</small><strong>기능성 체력 기반<br>미션형 이벤트</strong><p>근력·민첩성·지구력·협동성 요소 반영</p></article>
+        <article class="card soft"><small>PARTICIPANT BENEFIT</small><strong>푸드코트 이용권<br>1만원 제공</strong><p>연천쌀 1kg 추가 제공</p></article>
+      </div>
+
+      <article class="statement">
+        <b>WHY THIS EVENT</b>
+        <h3>평범한 체육대회가<br>아닙니다.</h3>
+        <p>달리고, 넘고, 버티며 완주하는 미션형 챌린지로 새로운 체력 경쟁을 경험하세요.</p>
+      </article>
+
+      <article class="accent-banner">
+        <small>TOTAL PRIZE</small>
+        <strong>₩3,000,000</strong>
+        <p>장애물 릴레이와 계주 단체전 우수 참가자를 시상합니다.</p>
+      </article>
+
+      <div class="footer-note"><b>2026 YEONCHEON PHYSICAL CHALLENGE RUNNING</b><br>제77회 국군의 날 기념 · 연천종합운동장 · 연천군체육회</div>
+    </section>
+  </main>
+
+  <main class="route" data-route="course">
+    <section class="page-hero">
+      <span class="eyebrow"><span class="dot"></span>COURSE & OBSTACLES</span>
+      <h2 class="page-title">8개의 장애물.<br>하나의 도전.</h2>
+      <p class="page-desc">START부터 FINISH까지 이어지는 8단계 장애물 코스를 한눈에 확인하세요.</p>
+
+      <article class="course-map">
+        <div class="copy">
+          <small>OBSTACLE COURSE</small>
+          <h3>장애물 코스</h3>
+          <p>경기장 전체 동선과 8단계 장애물 위치를 한 화면에서 확인할 수 있습니다.</p>
+        </div>
+        <div class="course-visual course-image-wrap" id="courseImageOpen" role="button" tabindex="0" aria-label="장애물 코스 확대 보기">
+          <img src="course-layout.webp" alt="2026 군 장애물 챌린지 8단계 장애물 코스" loading="eager" />
+          <div class="course-image-overlay"><span>장애물 코스</span><b>눌러서 확대 보기 ↗</b></div>
+        </div>
+      </article>
+
+      <article class="metric-panel">
+        <span class="eyebrow"><span class="dot"></span>COURSE INFO</span>
+        <h3 style="margin:8px 0 0;font-size:27px;line-height:1.03;letter-spacing:-.05em;">코스 한눈에 보기.</h3>
+        <p class="page-desc" style="margin-top:8px">코스 운영에 필요한 핵심 수치를 한눈에 확인하세요.</p>
+        <div class="metric-grid">
+          <div class="metric"><b>8</b><span>OBSTACLES</span></div>
+          <div class="metric"><b>2</b><span>PEOPLE / START</span></div>
+          <div class="metric"><b>4</b><span>TEAM RELAY</span></div>
+          <div class="metric"><b>250</b><span>ENTRY SCALE</span></div>
+        </div>
+      </article>
+
+      <div class="obstacle-list">
+        <article class="obstacle"><div class="obstacle-info"><div class="obstacle-num">01</div><h4>로프 타이어</h4><p>초반 파워와 밸런스를 동시에 요구하는 구간. 속도보다 정확한 움직임이 중요합니다.</p><div class="chips"><span class="chip">POWER</span><span class="chip">BALANCE</span></div></div><div class="iconbox"><svg viewBox="0 0 48 48" fill="none" stroke="#2f4231" stroke-width="3"><circle cx="15" cy="28" r="8"/><circle cx="33" cy="20" r="8"/><path d="M21 26l5-4"/></svg></div></article>
+        <article class="obstacle"><div class="obstacle-info"><div class="obstacle-num">02</div><h4>경사벽 오르기</h4><p>상체 사용과 순간 추진력이 동시에 필요한 벽 오르기 구간입니다.</p><div class="chips"><span class="chip">CLIMB</span><span class="chip">POWER</span></div></div><div class="iconbox"><svg viewBox="0 0 48 48" fill="none" stroke="#2f4231" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M10 34L32 14h6v20z"/><path d="M17 28l5-4"/></svg></div></article>
+        <article class="obstacle"><div class="obstacle-info"><div class="obstacle-num">03</div><h4>몽키바</h4><p>그립과 상체 지구력을 활용하는 대표 장애물입니다. 리듬감 있게 통과해야 합니다.</p><div class="chips"><span class="chip">GRIP</span><span class="chip">ENDURANCE</span></div></div><div class="iconbox"><svg viewBox="0 0 48 48" fill="none" stroke="#2f4231" stroke-width="3"><path d="M8 16h32M12 16v18M20 16v18M28 16v18M36 16v18"/></svg></div></article>
+        <article class="obstacle"><div class="obstacle-info"><div class="obstacle-num">04</div><h4>그물 포복</h4><p>낮은 자세와 몸의 컨트롤이 중요한 크롤링 구간. 속도보다 안정성이 필요합니다.</p><div class="chips"><span class="chip">CRAWL</span><span class="chip">AGILITY</span></div></div><div class="iconbox"><svg viewBox="0 0 48 48" fill="none" stroke="#2f4231" stroke-width="2.6"><rect x="8" y="12" width="32" height="20" rx="2"/><path d="M8 20h32M8 26h32M16 12v20M24 12v20M32 12v20"/></svg></div></article>
+        <article class="obstacle"><div class="obstacle-info"><div class="obstacle-num">05</div><h4>통나무 건너기</h4><p>집중력과 균형감각을 동시에 쓰는 구간. 서두르지 않고 발 딛는 순서가 중요합니다.</p><div class="chips"><span class="chip">BALANCE</span><span class="chip">FOCUS</span></div></div><div class="iconbox"><svg viewBox="0 0 48 48" fill="none" stroke="#2f4231" stroke-width="3"><path d="M9 29h30"/><path d="M14 29v-8M24 29v-8M34 29v-8"/></svg></div></article>
+        <article class="obstacle"><div class="obstacle-info"><div class="obstacle-num">06</div><h4>점프 밸런스</h4><p>순간 점프와 착지 밸런스가 핵심인 기술형 구간입니다.</p><div class="chips"><span class="chip">JUMP</span><span class="chip">LANDING</span></div></div><div class="iconbox"><svg viewBox="0 0 48 48" fill="none" stroke="#2f4231" stroke-width="3" stroke-linecap="round"><path d="M10 34h28"/><path d="M14 28l8-10 6 8 6-6"/></svg></div></article>
+        <article class="obstacle"><div class="obstacle-info"><div class="obstacle-num">07</div><h4>그물 장벽</h4><p>넘고 통과하는 과정에서 민첩성과 상체 활용이 필요한 장벽형 구간입니다.</p><div class="chips"><span class="chip">CLIMB</span><span class="chip">AGILITY</span></div></div><div class="iconbox"><svg viewBox="0 0 48 48" fill="none" stroke="#2f4231" stroke-width="2.6"><rect x="12" y="10" width="24" height="28"/><path d="M12 19h24M12 28h24M20 10v28M28 10v28"/></svg></div></article>
+        <article class="obstacle"><div class="obstacle-info"><div class="obstacle-num">08</div><h4>타이어 러쉬 · 터널 통과</h4><p>후반 집중력을 끌어올리는 마무리 구간. 빠른 발과 체력 유지가 핵심입니다.</p><div class="chips"><span class="chip">SPEED</span><span class="chip">END GAME</span></div></div><div class="iconbox"><svg viewBox="0 0 48 48" fill="none" stroke="#2f4231" stroke-width="3" stroke-linecap="round"><circle cx="15" cy="31" r="5"/><circle cx="27" cy="25" r="5"/><path d="M30 14h10v16H24"/></svg></div></article>
+      </div>
+    </section>
+  </main>
+
+  <main class="route" data-route="schedule">
+    <section class="page-hero">
+      <span class="eyebrow"><span class="dot"></span>SCHEDULE & PRIZE</span>
+      <h2 class="page-title">하루 동안<br>진행되는 챌린지.</h2>
+      <p class="page-desc">선수 등록부터 경기, 시상식까지 당일 일정을 확인하세요.</p>
+
+      <div class="timeline">
+        <div class="timeline-item"><div class="time">12:00</div><div class="time-card"><b>선수 집결 및 출석 확인</b><p>등록데스크 운영 · 선수 등록</p></div></div>
+        <div class="timeline-item"><div class="time">12:20</div><div class="time-card"><b>개회식</b><p>행사 취지 설명 · 내빈 소개 및 축사</p></div></div>
+        <div class="timeline-item"><div class="time">12:35</div><div class="time-card"><b>안전교육 및 몸풀기</b><p>코스 안내 · 계주 안내 · 스트레칭 진행</p></div></div>
+        <div class="timeline-item"><div class="time">12:55</div><div class="time-card"><b>장애물 경기 운영</b><p>참가팀 순차 진행 · 팀별 기록 운영</p></div></div>
+        <div class="timeline-item"><div class="time">16:00</div><div class="time-card"><b>계주 정렬 및 안전 안내</b><p>팀 구성 확인 · 경기장 정리</p></div></div>
+        <div class="timeline-item"><div class="time">17:20</div><div class="time-card"><b>계주 경기</b><p>4인 1조 · 총 8팀 · 32명</p></div></div>
+        <div class="timeline-item"><div class="time">17:50</div><div class="time-card"><b>경기결과 발표 및 시상식</b><p>개인전 및 단체전 시상 예정</p></div></div>
+        <div class="timeline-item"><div class="time">18:20</div><div class="time-card"><b>행사 종료 및 철수</b><p>18:50 최종 마무리 예정</p></div></div>
+      </div>
+
+      <div class="prize-grid">
+        <article class="prize-card">
+          <div class="prize-head"><span>장애물 릴레이 · 남자</span><span class="badge">MEN</span></div>
+          <div class="rank"><div class="rank-left">1위<small>1명</small></div><div class="rank-right"><b>500,000원</b><small>+ 연천군수상</small></div></div>
+          <div class="rank"><div class="rank-left">2위<small>1명</small></div><div class="rank-right"><b>400,000원</b><small>+ 연천군의장상</small></div></div>
+          <div class="rank"><div class="rank-left">3위<small>1명</small></div><div class="rank-right"><b>300,000원</b><small>+ 연천군체육회장상</small></div></div>
+        </article>
+        <article class="prize-card">
+          <div class="prize-head"><span>장애물 릴레이 · 여자</span><span class="badge">WOMEN</span></div>
+          <div class="rank"><div class="rank-left">1위<small>1명</small></div><div class="rank-right"><b>500,000원</b><small>+ 연천군수상</small></div></div>
+          <div class="rank"><div class="rank-left">2위<small>1명</small></div><div class="rank-right"><b>400,000원</b><small>+ 연천군의장상</small></div></div>
+          <div class="rank"><div class="rank-left">3위<small>1명</small></div><div class="rank-right"><b>300,000원</b><small>+ 연천군체육회장상</small></div></div>
+        </article>
+        <article class="prize-card">
+          <div class="prize-head"><span>계주 단체전</span><span class="badge">TEAM</span></div>
+          <div class="rank"><div class="rank-left">1위<small>1팀 · 4명</small></div><div class="rank-right"><b>400,000원</b></div></div>
+          <div class="rank"><div class="rank-left">2위<small>1팀 · 4명</small></div><div class="rank-right"><b>200,000원</b></div></div>
+        </article>
+        <div class="prize-total"><span>TOTAL PRIZE</span><b>₩3,000,000</b></div>
+      </div>
+    </section>
+  </main>
+
+  <main class="route" data-route="guide">
+    <section class="page-hero">
+      <span class="eyebrow"><span class="dot"></span>GUIDE & SAFETY</span>
+      <h2 class="page-title">안전은 철저하게.<br>운영은 명확하게.</h2>
+      <p class="page-desc">안전관리, 경기장 위치, 참가 전 확인사항을 안내합니다.</p>
+
+      <article class="guide-card">
+        <span class="eyebrow" style="color:var(--lime)"><span class="dot" style="background:var(--lime);box-shadow:0 0 0 5px rgba(214,255,82,.1)"></span>SAFETY FIRST</span>
+        <h3>도전은 과감하게,<br>안전은 철저하게.</h3>
+        <div class="guide-list">
+          <div class="guide-item"><i>✓</i><span>주최자배상책임공제 가입</span></div>
+          <div class="guide-item"><i>✓</i><span>구급차 및 응급의료 인력 현장 배치</span></div>
+          <div class="guide-item"><i>✓</i><span>종목별 난이도 구분 및 경기 전 안전교육 실시</span></div>
+          <div class="guide-item"><i>✓</i><span>장애물 구간 안전요원 배치 및 현장 통제</span></div>
+          <div class="guide-item"><i>✓</i><span>사고 발생 시 대응체계 운영</span></div>
+        </div>
+      </article>
+
+      <article class="location-card">
+        <div class="map-visual">
+          <svg viewBox="0 0 394 208" xmlns="http://www.w3.org/2000/svg">
+            <rect width="394" height="208" fill="#e9f0df"/>
+            <g fill="none" stroke="#d0dbc5" stroke-width="8">
+              <path d="M-20 50 C84 95 134 20 238 58 S338 120 430 76"/>
+              <path d="M48 -20 C90 46 56 102 126 144 S188 190 198 230"/>
+              <path d="M278 -20 C270 36 300 74 284 118 S252 174 260 228"/>
+            </g>
+            <g fill="none" stroke="#fbfcf8" stroke-width="3">
+              <path d="M-20 50 C84 95 134 20 238 58 S338 120 430 76"/>
+              <path d="M48 -20 C90 46 56 102 126 144 S188 190 198 230"/>
+              <path d="M278 -20 C270 36 300 74 284 118 S252 174 260 228"/>
+            </g>
+            <circle cx="210" cy="102" r="40" fill="#101611" opacity=".08"/>
+            <path d="M210 70c-17 0-31 14-31 31 0 22 31 53 31 53s31-31 31-53c0-17-14-31-31-31zm0 41a10 10 0 1 1 0-20 10 10 0 0 1 0 20z" fill="#111611"/>
+            <circle cx="210" cy="85" r="10" fill="#ff6e2f"/>
+            <text x="20" y="24" fill="#7f887d" font-size="10" font-weight="900" letter-spacing="2">YEONCHEON STADIUM</text>
+          </svg>
+        </div>
+        <div class="location-copy">
+          <small>LOCATION</small>
+          <h3>연천종합운동장</h3>
+          <p>경기도 연천군 연천읍 문화로 150</p>
+          <div class="quick-btns">
+            <button class="soft-btn" id="mapBtn">지도에서 보기</button>
+            <button class="soft-btn" id="calendarBtnGuide">일정 저장</button>
+          </div>
+        </div>
+      </article>
+
+      <div style="margin-top:16px">
+        <details><summary>누가 참가할 수 있나요?</summary><p>연천군 관내 소속 부대 군인이 참가할 수 있습니다.</p></details>
+        <details><summary>참가비는 얼마인가요?</summary><p>참가비는 1인 20,000원이며 푸드코트 이용권 10,000원과 연천쌀 1kg이 제공됩니다.</p></details>
+        <details><summary>코스는 어떻게 안내되나요?</summary><p>장애물 코스를 통해 전체 동선을 확인할 수 있으며, 세부 운영 안내는 경기 전 공지됩니다.</p></details>
+        <details><summary>계주는 어떻게 신청하나요?</summary><p>계주를 선택하면 4명의 참가자 정보를 한 번에 입력해 팀 단위로 신청할 수 있습니다.</p></details>
+        <details><summary>문의는 어디로 하나요?</summary><p>연천군체육회 대표번호 031-834-3100을 문의 연락처로 사용할 수 있습니다.</p></details>
+      </div>
+    </section>
+  </main>
+
+  <main class="route" data-route="apply">
+    <section class="page-hero">
+      <span class="eyebrow"><span class="dot"></span>REGISTRATION</span>
+      <h2 class="page-title">참가 신청을<br>바로 시작하세요.</h2>
+      <p class="page-desc">개인전 또는 4인 계주를 선택하고 참가 정보를 입력해주세요. 접수가 완료되면 고유 접수번호가 발급됩니다.</p>
+    </section>
+
+    <section class="form-wrap">
+      <div class="progress" id="progressBar"><span class="on"></span><span></span><span></span></div>
+      <div class="form-card" id="formCard">
+        <form id="applyForm" novalidate>
+          <div class="form-step" data-step="1">
+            <h3>01. 참가 방식 선택</h3>
+            <p class="helper">참가할 종목을 선택해주세요.</p>
+            <div class="choice-grid">
+              <button type="button" class="choice active" data-type="개인전"><b>개인전</b><span>1인 신청<br>개별 접수</span></button>
+              <button type="button" class="choice" data-type="계주"><b>계주</b><span>4인 1팀<br>팀 단위 신청</span></button>
+            </div>
+            <input type="hidden" id="entryType" name="entryType" value="개인전" />
+            <div class="notice">참가비는 1인 20,000원이며 푸드코트 이용권 10,000원과 연천쌀 1kg이 제공됩니다. 납부 및 참가 확정 방법은 접수 후 별도 안내됩니다.</div>
+            <div class="form-actions" style="grid-template-columns:1fr"><button type="button" class="btn-submit nextStep">다음</button></div>
+          </div>
+
+          <div class="form-step hidden" data-step="2">
+            <h3>02. 참가자 정보 입력</h3>
+            <p class="helper" id="step2Helper">개인전 참가자 정보를 입력해주세요.</p>
+
+            <div id="individualFields" class="conditional">
+              <div class="field"><label for="p1Name">이름 *</label><input class="input" id="p1Name" placeholder="홍길동" autocomplete="name" /></div>
+              <div class="row2"><div class="field"><label for="p1Gender">성별 *</label><select class="input" id="p1Gender"><option value="">선택</option><option value="남성">남성</option><option value="여성">여성</option></select></div><div class="field"><label for="p1Birth">생년월일 *</label><input class="input" id="p1Birth" type="date" /></div></div>
+              <div class="field"><label for="p1Affiliation">소속 부대 / 기관 *</label><input class="input" id="p1Affiliation" placeholder="예: ○○사단 ○○대대 / ○○부대" /></div>
+              <div class="field"><label for="p1Department">세부 소속</label><input class="input" id="p1Department" placeholder="예: ○○중대 / ○○부서 (선택)" /></div>
+              <div class="field"><label for="p1Phone">휴대폰 번호 *</label><input class="input phone-input" id="p1Phone" inputmode="tel" autocomplete="tel" placeholder="010-0000-0000" /></div>
+            </div>
+
+            <div id="relayFields" class="conditional hidden">
+              <div class="team-meta">
+                <div class="team-meta-title">팀 정보</div>
+                <div class="field"><label for="teamName">팀명 *</label><input class="input" id="teamName" placeholder="예: TEAM ALPHA" /></div>
+                <div class="field"><label for="relayGroupType">참가 구분 *</label><select class="input" id="relayGroupType"><option value="">선택</option><option value="일반 참가">일반 참가</option><option value="팀 대표(주장)">팀 대표(주장)</option></select><span class="field-caption">팀 접수 담당자의 참가 구분을 선택해주세요.</span></div>
+              </div>
+              <div class="member-list">
+                <article class="member-card">
+                  <div class="member-head"><b>참가자 1</b><span class="member-no">01</span></div>
+                  <div class="field"><label for="r1Name">이름 *</label><input class="input" id="r1Name" placeholder="참가자 이름" /></div>
+                  <div class="row2"><div class="field"><label for="r1Gender">성별 *</label><select class="input" id="r1Gender"><option value="">선택</option><option value="남성">남성</option><option value="여성">여성</option></select></div><div class="field"><label for="r1Birth">생년월일 *</label><input class="input" id="r1Birth" type="date" /></div></div>
+                  <div class="field"><label for="r1Affiliation">소속 부대 / 기관 *</label><input class="input" id="r1Affiliation" placeholder="소속 부대 / 기관" /></div>
+                  <div class="field"><label for="r1Department">세부 소속</label><input class="input" id="r1Department" placeholder="중대 / 부서 (선택)" /></div>
+                  <div class="field"><label for="r1Phone">휴대폰 번호 *</label><input class="input phone-input" id="r1Phone" inputmode="tel" placeholder="010-0000-0000" /></div>
+                </article>
+                <article class="member-card">
+                  <div class="member-head"><b>참가자 2</b><span class="member-no">02</span></div>
+                  <div class="field"><label for="r2Name">이름 *</label><input class="input" id="r2Name" placeholder="참가자 이름" /></div>
+                  <div class="row2"><div class="field"><label for="r2Gender">성별 *</label><select class="input" id="r2Gender"><option value="">선택</option><option value="남성">남성</option><option value="여성">여성</option></select></div><div class="field"><label for="r2Birth">생년월일 *</label><input class="input" id="r2Birth" type="date" /></div></div>
+                  <div class="field"><label for="r2Affiliation">소속 부대 / 기관 *</label><input class="input" id="r2Affiliation" placeholder="소속 부대 / 기관" /></div>
+                  <div class="field"><label for="r2Department">세부 소속</label><input class="input" id="r2Department" placeholder="중대 / 부서 (선택)" /></div>
+                  <div class="field"><label for="r2Phone">휴대폰 번호 *</label><input class="input phone-input" id="r2Phone" inputmode="tel" placeholder="010-0000-0000" /></div>
+                </article>
+                <article class="member-card">
+                  <div class="member-head"><b>참가자 3</b><span class="member-no">03</span></div>
+                  <div class="field"><label for="r3Name">이름 *</label><input class="input" id="r3Name" placeholder="참가자 이름" /></div>
+                  <div class="row2"><div class="field"><label for="r3Gender">성별 *</label><select class="input" id="r3Gender"><option value="">선택</option><option value="남성">남성</option><option value="여성">여성</option></select></div><div class="field"><label for="r3Birth">생년월일 *</label><input class="input" id="r3Birth" type="date" /></div></div>
+                  <div class="field"><label for="r3Affiliation">소속 부대 / 기관 *</label><input class="input" id="r3Affiliation" placeholder="소속 부대 / 기관" /></div>
+                  <div class="field"><label for="r3Department">세부 소속</label><input class="input" id="r3Department" placeholder="중대 / 부서 (선택)" /></div>
+                  <div class="field"><label for="r3Phone">휴대폰 번호 *</label><input class="input phone-input" id="r3Phone" inputmode="tel" placeholder="010-0000-0000" /></div>
+                </article>
+                <article class="member-card">
+                  <div class="member-head"><b>참가자 4</b><span class="member-no">04</span></div>
+                  <div class="field"><label for="r4Name">이름 *</label><input class="input" id="r4Name" placeholder="참가자 이름" /></div>
+                  <div class="row2"><div class="field"><label for="r4Gender">성별 *</label><select class="input" id="r4Gender"><option value="">선택</option><option value="남성">남성</option><option value="여성">여성</option></select></div><div class="field"><label for="r4Birth">생년월일 *</label><input class="input" id="r4Birth" type="date" /></div></div>
+                  <div class="field"><label for="r4Affiliation">소속 부대 / 기관 *</label><input class="input" id="r4Affiliation" placeholder="소속 부대 / 기관" /></div>
+                  <div class="field"><label for="r4Department">세부 소속</label><input class="input" id="r4Department" placeholder="중대 / 부서 (선택)" /></div>
+                  <div class="field"><label for="r4Phone">휴대폰 번호 *</label><input class="input phone-input" id="r4Phone" inputmode="tel" placeholder="010-0000-0000" /></div>
+                </article>
+              </div>
+              <div class="team-tip">계주 신청은 4명의 참가자 정보를 모두 입력해야 접수가 가능합니다.</div>
+            </div>
+
+            <div class="entry-note"><span>선택한 참가 방식</span><b id="entryTypeLabel">개인전</b></div>
+            <div class="form-actions"><button type="button" class="btn-ghost prevStep">이전</button><button type="button" class="btn-submit nextStep">다음</button></div>
+          </div>
+
+          <div class="form-step hidden" data-step="3">
+            <h3>03. 동의 및 제출</h3>
+            <p class="helper">필수 동의 항목을 확인한 뒤 신청을 완료합니다.</p>
+            <div class="agree"><input type="checkbox" id="agreePrivacy" required /><label for="agreePrivacy"><b>개인정보 수집·이용에 동의합니다.</b><br>참가자 확인, 안내 연락, 보험 및 안전 운영을 위한 정보 수집·이용에 동의합니다.</label></div>
+            <div class="agree"><input type="checkbox" id="agreeSafety" required /><label for="agreeSafety"><b>안전수칙 및 운영 안내에 동의합니다.</b><br>경기 전 안전교육에 참여하고 현장 통제 및 운영요원 안내를 준수합니다.</label></div>
+            <div class="agree"><input type="checkbox" id="agreeNotice" required /><label for="agreeNotice"><b>최종 공지 및 운영 기준을 확인합니다.</b><br>세부 일정과 참가 확정 내용은 공식 안내를 통해 확인합니다.</label></div>
+            <div class="notice" id="submitModeNotice">입력한 내용을 확인한 뒤 신청을 완료해주세요.</div>
+            <div class="submit-error hidden" id="submitError" role="alert"></div>
+            <div class="form-actions"><button type="button" class="btn-ghost prevStep">이전</button><button type="submit" class="btn-submit" id="submitBtn">신청 완료하기</button></div>
+          </div>
+        </form>
+      </div>
+      <div class="receipt" id="receipt"><div class="stamp">GO!</div><h3>REGISTRATION<br>COMPLETE</h3><p id="receiptText">신청 정보가 저장되었습니다.</p><div class="receipt-id">접수번호 · <b id="receiptId">YC-000000</b></div><button class="btn-primary" id="receiptHomeBtn">홈으로 돌아가기</button></div>
+    </section>
+  </main>
+
+  <div class="image-modal" id="courseImageModal" aria-hidden="true">
+    <div class="image-modal-card">
+      <button class="modal-close" id="courseImageClose" aria-label="닫기">×</button>
+      <img src="course-layout.webp" alt="2026 군 장애물 챌린지 장애물 코스 확대 이미지" />
+      <div class="modal-caption">2026 군 장애물 챌린지 · 장애물 코스</div>
+    </div>
+  </div>
+
+  <nav class="bottom-dock" aria-label="하단 메뉴">
+    <div class="dock">
+      <a href="#home" data-nav="home" class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 11l9-8 9 8v9H3z"/><path d="M9 20v-6h6v6"/></svg><span>홈</span></a>
+      <a href="#course" data-nav="course"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 18c4-8 8 1 16-12"/><circle cx="5" cy="18" r="2"/><circle cx="19" cy="6" r="2"/></svg><span>코스</span></a>
+      <a href="#schedule" data-nav="schedule"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/></svg><span>일정</span></a>
+      <a href="#guide" data-nav="guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11z"/><path d="M9 12l2 2 4-4"/></svg><span>안내</span></a>
+      <a href="#apply" data-nav="apply" class="apply-tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14M14 7l5 5-5 5"/></svg><span>신청</span></a>
+    </div>
+  </nav>
+</div>
+
+<div class="toast" id="toast">완료되었습니다.</div>
+<iframe id="gasResultFrame" name="gasResultFrame" title="접수 처리" style="display:none;width:0;height:0;border:0"></iframe>
+
+<script>
+  const CONFIG = {
+    googleAppsScriptUrl: "https://script.google.com/macros/s/AKfycbzf1S_wtqE--3oMRWD8VBgfdyeJQj_YLzXVZ22N0M4-awK7u3iXElTIhRGvpW7x9Mrv/exec",
+    eventDate: "2026-10-14T12:00:00+09:00",
+    eventEnd: "2026-10-14T18:50:00+09:00",
+    localStorageKey: "yc2026_physical_challenge_submissions_v14",
+    pendingStorageKey: "yc2026_physical_challenge_pending_v13",
+    clientVersion: "v13"
+  };
+
+  const $ = (s, root=document) => root.querySelector(s);
+  const $$ = (s, root=document) => [...root.querySelectorAll(s)];
+  function toast(msg){ const el = $('#toast'); el.textContent = msg; el.classList.add('show'); clearTimeout(window.__toastTimer); window.__toastTimer = setTimeout(()=>el.classList.remove('show'), 2200); }
+  function isConnected(){ return /^https:\/\/script\.google\.com\/macros\/s\/.+\/exec/.test(CONFIG.googleAppsScriptUrl); }
+
+  function updateDDay(){
+    const now = new Date();
+    const event = new Date(CONFIG.eventDate);
+    const diff = Math.ceil((event - now) / (1000*60*60*24));
+    let text = '2026.10.14 · 연천종합운동장';
+    if(diff > 0) text = `D-${diff} · 2026.10.14 · 연천종합운동장`;
+    else if(diff === 0) text = `D-DAY · 2026.10.14 · 연천종합운동장`;
+    $('#ddayText').textContent = text;
+  }
+  updateDDay();
+
+  function route(){
+    const key = (location.hash || '#home').replace('#','').split('?')[0] || 'home';
+    const routeKey = ['home','course','schedule','guide','apply'].includes(key) ? key : 'home';
+    $$('.route').forEach(el => el.classList.toggle('active', el.dataset.route === routeKey));
+    $$('[data-nav]').forEach(el => el.classList.toggle('active', el.dataset.nav === routeKey));
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+  window.addEventListener('hashchange', route);
+  route();
+
+  $('#submitModeNotice').textContent = '입력한 내용을 확인한 뒤 신청을 완료해주세요. 중복 접수와 정원은 자동으로 확인됩니다.';
+
+  $('#shareBtn').addEventListener('click', async () => {
+    const data = {title: document.title, text: '2026 연천군 Physical Challenge Running', url: location.href};
+    try{
+      if(navigator.share) await navigator.share(data);
+      else { await navigator.clipboard.writeText(location.href); toast('링크를 복사했습니다.'); }
+    }catch(e){}
+  });
+
+  function pad(n){ return String(n).padStart(2,'0'); }
+  function toIcsLocal(d){ return d.getFullYear()+pad(d.getMonth()+1)+pad(d.getDate())+'T'+pad(d.getHours())+pad(d.getMinutes())+'00'; }
+  function downloadCalendar(){
+    const start = new Date(CONFIG.eventDate), end = new Date(CONFIG.eventEnd);
+    const ics = [
+      'BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Yeoncheon Physical Challenge//KO','BEGIN:VEVENT',
+      'UID:yc-physical-challenge-2026@event',
+      `DTSTART;TZID=Asia/Seoul:${toIcsLocal(start)}`,
+      `DTEND;TZID=Asia/Seoul:${toIcsLocal(end)}`,
+      'SUMMARY:2026 연천군 Physical Challenge Running',
+      'LOCATION:연천종합운동장\\, 경기도 연천군 연천읍 문화로 150',
+      'DESCRIPTION:제77회 국군의 날 기념 2026 연천군 Physical Challenge Running',
+      'END:VEVENT','END:VCALENDAR'
+    ].join('\r\n');
+    const blob = new Blob([ics], {type:'text/calendar;charset=utf-8'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = '2026_yeoncheon_physical_challenge.ics';
+    a.click();
+    URL.revokeObjectURL(a.href);
+    toast('일정 파일을 만들었습니다.');
+  }
+  $('#calendarBtnHero').addEventListener('click', downloadCalendar);
+  $('#calendarBtnGuide').addEventListener('click', downloadCalendar);
+  $('#mapBtn').addEventListener('click', () => {
+    const q = encodeURIComponent('연천종합운동장 경기도 연천군 연천읍 문화로 150');
+    window.open(`https://map.naver.com/p/search/${q}`, '_blank', 'noopener');
+  });
+
+
+  const courseImageOpen = $('#courseImageOpen');
+  const courseImageModal = $('#courseImageModal');
+  const courseImageClose = $('#courseImageClose');
+  function openCourseImage(){ courseImageModal.classList.add('show'); courseImageModal.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; }
+  function closeCourseImage(){ courseImageModal.classList.remove('show'); courseImageModal.setAttribute('aria-hidden','true'); document.body.style.overflow=''; }
+  courseImageOpen.addEventListener('click', openCourseImage);
+  courseImageOpen.addEventListener('keydown', (e)=>{ if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); openCourseImage(); } });
+  courseImageClose.addEventListener('click', closeCourseImage);
+  courseImageModal.addEventListener('click', (e)=>{ if(e.target === courseImageModal) closeCourseImage(); });
+  document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape' && courseImageModal.classList.contains('show')) closeCourseImage(); });
+
+  let currentStep = 1;
+  function formatPhoneValue(value){
+    const n = value.replace(/\D/g,'').slice(0,11);
+    if(n.length > 7) return n.slice(0,3) + '-' + n.slice(3,7) + '-' + n.slice(7);
+    if(n.length > 3) return n.slice(0,3) + '-' + n.slice(3);
+    return n;
+  }
+  function currentEntryType(){ return $('#entryType').value; }
+  function renderEntryFields(){
+    const relay = currentEntryType() === '계주';
+    $('#individualFields').classList.toggle('hidden', relay);
+    $('#relayFields').classList.toggle('hidden', !relay);
+    $('#step2Helper').textContent = relay ? '4명의 참가자 정보와 팀 정보를 입력해주세요.' : '개인전 참가자 정보를 입력해주세요.';
+    $('#entryTypeLabel').textContent = relay ? '계주 · 4인 1팀' : '개인전';
+  }
+  function showStep(step){
+    currentStep = step;
+    $$('.form-step').forEach(el => el.classList.toggle('hidden', +el.dataset.step !== step));
+    $$('#progressBar span').forEach((el, i) => el.classList.toggle('on', i < step));
+    if(step === 2) renderEntryFields();
+  }
+  $$('.choice').forEach(btn => btn.addEventListener('click', () => {
+    $$('.choice').forEach(x => x.classList.remove('active'));
+    btn.classList.add('active');
+    $('#entryType').value = btn.dataset.type;
+  }));
+
+  function requiredValue(id, message='필수 정보를 입력해주세요.'){
+    const el = $('#'+id);
+    if(!el || !el.value.trim()){ if(el) el.focus(); toast(message); return false; }
+    return true;
+  }
+  function validPhone(id){
+    const el = $('#'+id);
+    if(!el) return false;
+    if(el.value.replace(/\D/g,'').length < 10){ el.focus(); toast('휴대폰 번호를 확인해주세요.'); return false; }
+    return true;
+  }
+  function validateStep2(){
+    if(currentEntryType() === '개인전'){
+      for(const id of ['p1Name','p1Gender','p1Birth','p1Affiliation','p1Phone']) if(!requiredValue(id)) return false;
+      return validPhone('p1Phone');
+    }
+    if(!requiredValue('teamName')) return false;
+    if(!requiredValue('relayGroupType','참가 구분을 선택해주세요.')) return false;
+    for(let i=1;i<=4;i++){
+      for(const field of ['Name','Gender','Birth','Affiliation','Phone']){
+        if(!requiredValue(`r${i}${field}`, `참가자 ${i}의 필수 정보를 입력해주세요.`)) return false;
+      }
+      if(!validPhone(`r${i}Phone`)) return false;
+    }
+    return true;
+  }
+  $$('.nextStep').forEach(btn => btn.addEventListener('click', () => {
+    if(currentStep === 2 && !validateStep2()) return;
+    showStep(Math.min(3, currentStep + 1));
+  }));
+  $$('.prevStep').forEach(btn => btn.addEventListener('click', () => showStep(Math.max(1, currentStep - 1))));
+  $$('.phone-input').forEach(el => el.addEventListener('input', e => { e.target.value = formatPhoneValue(e.target.value); }));
+
+  function participantFrom(prefix){
+    return {
+      name: $(`#${prefix}Name`)?.value.trim() || '',
+      gender: $(`#${prefix}Gender`)?.value || '',
+      birth: $(`#${prefix}Birth`)?.value || '',
+      affiliation: $(`#${prefix}Affiliation`)?.value.trim() || '',
+      department: $(`#${prefix}Department`)?.value.trim() || '',
+      phone: $(`#${prefix}Phone`)?.value.trim() || ''
+    };
+  }
+
+  const FORM_STARTED_AT = Date.now();
+  let gasPending = null;
+
+  function makeRequestId(){
+    if(window.crypto?.randomUUID) return window.crypto.randomUUID();
+    return `req-${Date.now()}-${Math.random().toString(36).slice(2)}-${Math.random().toString(36).slice(2)}`;
+  }
+
+  function getPendingRequestId(record){
+    const fingerprint = JSON.stringify(record);
+    const now = Date.now();
+    try{
+      const saved = JSON.parse(sessionStorage.getItem(CONFIG.pendingStorageKey) || 'null');
+      if(saved && saved.fingerprint === fingerprint && saved.requestId && now - saved.createdAt < 15 * 60 * 1000){
+        return saved.requestId;
+      }
+    }catch(e){}
+    const requestId = makeRequestId();
+    sessionStorage.setItem(CONFIG.pendingStorageKey, JSON.stringify({requestId, fingerprint, createdAt:now}));
+    return requestId;
+  }
+
+  function clearPendingRequest(){
+    try{ sessionStorage.removeItem(CONFIG.pendingStorageKey); }catch(e){}
+  }
+
+  function saveCompletedSubmission(record, result){
+    try{
+      const all = JSON.parse(localStorage.getItem(CONFIG.localStorageKey) || '[]');
+      all.push({...record, registrationId:result.registrationId, savedAt:new Date().toISOString()});
+      localStorage.setItem(CONFIG.localStorageKey, JSON.stringify(all.slice(-20)));
+    }catch(e){}
+  }
+
+  function showSubmitError(message){
+    const el = $('#submitError');
+    el.textContent = message || '접수 중 오류가 발생했습니다. 다시 시도해주세요.';
+    el.classList.remove('hidden');
+  }
+
+  function hideSubmitError(){
+    const el = $('#submitError');
+    el.textContent = '';
+    el.classList.add('hidden');
+  }
+
+  window.addEventListener('message', (event) => {
+    const data = event.data;
+    if(!data || data.source !== 'YC_REGISTRATION_RESPONSE' || !gasPending) return;
+    if(data.requestId !== gasPending.requestId) return;
+    const pending = gasPending;
+    gasPending = null;
+    clearTimeout(pending.timer);
+    if(data.ok){
+      pending.resolve(data);
+    }else{
+      const err = new Error(data.message || '접수 처리 중 오류가 발생했습니다.');
+      err.serverData = data;
+      pending.reject(err);
+    }
+  });
+
+  function submitViaAppsScript(record, requestId){
+    return new Promise((resolve, reject) => {
+      if(!isConnected()){
+        reject(new Error('접수 시스템 연결이 완료되지 않았습니다. 관리자에게 문의해주세요.'));
+        return;
+      }
+      if(gasPending){
+        reject(new Error('이미 접수를 처리하고 있습니다. 잠시만 기다려주세요.'));
+        return;
+      }
+
+      const timer = setTimeout(() => {
+        if(gasPending?.requestId === requestId) gasPending = null;
+        const err = new Error('서버 응답이 지연되고 있습니다. 같은 내용으로 다시 시도하면 중복 접수 없이 확인됩니다.');
+        err.code = 'TIMEOUT';
+        reject(err);
+      }, 25000);
+      gasPending = {requestId, resolve, reject, timer};
+
+      const form = document.createElement('form');
+      form.method = 'POST';
+      form.action = CONFIG.googleAppsScriptUrl;
+      form.target = 'gasResultFrame';
+      form.acceptCharset = 'UTF-8';
+      form.style.display = 'none';
+
+      const payload = {
+        action:'register',
+        requestId,
+        clientVersion:CONFIG.clientVersion,
+        clientStartedAt:String(FORM_STARTED_AT),
+        hp:'',
+        ...record
+      };
+
+      Object.entries(payload).forEach(([name, value]) => {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = name;
+        input.value = String(value ?? '');
+        form.appendChild(input);
+      });
+      document.body.appendChild(form);
+      form.submit();
+      setTimeout(() => form.remove(), 1200);
+    });
+  }
+
+  $('#applyForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    hideSubmitError();
+    if(!validateStep2()) return;
+    if(!$('#agreePrivacy').checked || !$('#agreeSafety').checked || !$('#agreeNotice').checked){
+      toast('동의 항목을 모두 확인해주세요.');
+      return;
+    }
+    if(!isConnected()){
+      showSubmitError('현재 접수 시스템 연결이 완료되지 않았습니다. 관리자에게 문의해주세요.');
+      return;
+    }
+
+    const btn = $('#submitBtn');
+    btn.disabled = true;
+    btn.textContent = '접수 확인 중...';
+
+    const relay = currentEntryType() === '계주';
+    const participants = relay
+      ? [participantFrom('r1'),participantFrom('r2'),participantFrom('r3'),participantFrom('r4')]
+      : [participantFrom('p1'),{},{},{}];
+
+    const record = {
+      clientSubmittedAt:new Date().toISOString(),
+      entryType:currentEntryType(),
+      groupType:relay ? $('#relayGroupType').value : '',
+      teamName:relay ? $('#teamName').value.trim() : '',
+      p1Name:participants[0].name||'', p1Gender:participants[0].gender||'', p1Birth:participants[0].birth||'', p1Affiliation:participants[0].affiliation||'', p1Department:participants[0].department||'', p1Phone:participants[0].phone||'',
+      p2Name:participants[1].name||'', p2Gender:participants[1].gender||'', p2Birth:participants[1].birth||'', p2Affiliation:participants[1].affiliation||'', p2Department:participants[1].department||'', p2Phone:participants[1].phone||'',
+      p3Name:participants[2].name||'', p3Gender:participants[2].gender||'', p3Birth:participants[2].birth||'', p3Affiliation:participants[2].affiliation||'', p3Department:participants[2].department||'', p3Phone:participants[2].phone||'',
+      p4Name:participants[3].name||'', p4Gender:participants[3].gender||'', p4Birth:participants[3].birth||'', p4Affiliation:participants[3].affiliation||'', p4Department:participants[3].department||'', p4Phone:participants[3].phone||'',
+      privacyConsent:'Y', safetyConsent:'Y', noticeConsent:'Y'
+    };
+
+    const requestId = getPendingRequestId(record);
+    try{
+      const result = await submitViaAppsScript(record, requestId);
+      clearPendingRequest();
+      saveCompletedSubmission(record, result);
+      $('#formCard').classList.add('hidden');
+      $('#receipt').classList.add('show');
+      $('#receiptId').textContent = result.registrationId;
+      $('#receiptText').textContent = result.idempotent
+        ? '기존 접수 내역을 확인했습니다. 아래 접수번호를 확인해주세요.'
+        : '참가 신청이 정상적으로 접수되었습니다. 아래 접수번호를 확인해주세요.';
+    }catch(err){
+      console.error(err);
+      const server = err.serverData;
+      if(server){
+        clearPendingRequest();
+        showSubmitError(server.message || err.message);
+      }else{
+        // A timeout may happen after the server already stored the application.
+        // Keep the same requestId so a retry is idempotent.
+        showSubmitError(err.message || '접수 중 통신 오류가 발생했습니다. 다시 시도해주세요.');
+      }
+    }finally{
+      btn.disabled = false;
+      btn.textContent = '신청 완료하기';
+    }
+  });
+
+  $('#receiptHomeBtn').addEventListener('click', () => { location.hash = '#home'; });
+</script>
+</body>
+</html>
