@@ -4,8 +4,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#0b0f0d" />
-  <meta name="description" content="2026 연천군 Physical Challenge Running 공식 모바일 SPA" />
-  <title>2026 YEONCHEON PHYSICAL CHALLENGE</title>
+  <meta name="description" content="2026 제77회 국군의 날 기념 연천군 피지컬 챌린지 공식 모바일 SPA" />
+  <title>2026 연천군 피지컬 챌린지</title>
   <style>
     :root{
       --bg:#0b0f0d;
@@ -106,10 +106,20 @@
     .course-map p{margin:10px 0 0;font-size:12px;line-height:1.65;color:#c4cac1}
     .course-visual{height:230px;background:linear-gradient(180deg,#121813,#182018)}
     .course-visual svg{display:block;width:100%;height:100%}
+    .relay-program-card{margin-top:14px;background:#fff;border:1px solid var(--line);border-radius:28px;padding:18px;box-shadow:var(--shadow-soft);overflow:hidden}
+    .relay-program-card small{display:block;font-size:10px;letter-spacing:.14em;font-weight:900;color:#7c847b}
+    .relay-program-card h3{margin:8px 0 0;font-size:28px;line-height:1.05;letter-spacing:-.055em;color:#101510}
+    .relay-program-card p{margin:8px 0 0;font-size:12px;line-height:1.65;color:#6d756d}
+    .relay-program-visual{margin-top:16px;border-radius:22px;overflow:hidden;border:1px solid #e4e8df;background:#edf1ea}
+    .relay-program-visual img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover}
+    .relay-program-caption{padding:14px 16px;background:linear-gradient(180deg,#111611,#161e18);color:#fff}
+    .relay-program-caption strong{display:block;font-size:20px;line-height:1.15;letter-spacing:-.04em}
+    .relay-program-caption span{display:block;margin-top:7px;font-size:12px;line-height:1.55;color:#c7d0c6}
+    .relay-program-chip{display:inline-flex;align-items:center;gap:6px;margin-top:14px;padding:8px 12px;border-radius:999px;background:#eff5e4;border:1px solid #dce6c8;font-size:11px;font-weight:900;color:#44563b;letter-spacing:.03em}
     .metric-panel{margin-top:14px;background:#fff;border:1px solid var(--line);border-radius:28px;padding:18px;box-shadow:var(--shadow-soft)}
     .metric-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px}
     .metric{background:#f4f6ef;border-radius:18px;padding:12px 10px}
-    .metric b{display:block;font-size:21px;line-height:1;letter-spacing:-.05em}
+    .metric b{display:block;font-size:21px;line-height:1;letter-spacing:-.055em;white-space:nowrap}
     .metric span{display:block;margin-top:6px;font-size:10px;line-height:1.3;color:#788077;font-weight:800}
     .obstacle-list{display:grid;gap:12px;margin-top:18px}
     .obstacle{background:#fff;border:1px solid var(--line);border-radius:24px;padding:16px;box-shadow:var(--shadow-soft);display:flex;gap:12px;justify-content:space-between;align-items:flex-start}
@@ -120,7 +130,7 @@
     .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.chip{padding:7px 10px;border-radius:999px;background:#f4f5f0;border:1px solid #eceee7;font-size:10px;font-weight:900;color:#5e665d;letter-spacing:.04em}
     .iconbox{width:72px;height:72px;border-radius:18px;background:linear-gradient(180deg,#f6f9f1,#ebf1e2);border:1px solid #dde4d4;display:grid;place-items:center;flex:0 0 auto}.iconbox svg{width:48px;height:48px}
 
-    .difficulty-box{width:78px;min-height:72px;border-radius:18px;background:linear-gradient(180deg,#f6f9f1,#ebf1e2);border:1px solid #dde4d4;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;flex:0 0 auto;text-align:center}.difficulty-box small{font-size:9px;font-weight:900;color:#778172;letter-spacing:.08em}.difficulty-box b{font-size:13px;line-height:1;color:#2f4231;letter-spacing:-.08em}
+    .difficulty-box{width:78px;min-height:72px;border-radius:18px;background:linear-gradient(180deg,#f6f9f1,#ebf1e2);border:1px solid #dde4d4;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;flex:0 0 auto;text-align:center}.difficulty-box small{font-size:9px;font-weight:900;color:#778172;letter-spacing:.08em}.difficulty-box b{font-size:14px;line-height:1;color:#2f4231;letter-spacing:-.05em;white-space:nowrap}
     .payment-card{margin-top:16px;border-radius:24px;background:linear-gradient(180deg,#111611,#151d16);color:#fff;padding:18px;border:1px solid rgba(255,255,255,.08)}.payment-card small{display:block;font-size:9px;letter-spacing:.13em;color:#bfc8bc;font-weight:900}.payment-card h4{margin:8px 0 0;font-size:25px;line-height:1.1;letter-spacing:-.045em}.payment-account{margin-top:16px;padding:14px;border-radius:18px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08)}.payment-account span{display:block;font-size:10px;color:#bfc6bd;font-weight:800}.payment-account b{display:block;margin-top:6px;font-size:16px;line-height:1.4;letter-spacing:-.025em}.payment-list{display:grid;gap:8px;margin-top:14px}.payment-list div{padding:11px 12px;border-radius:15px;background:#f5f7f1;border:1px solid #e4e8df;font-size:11px;line-height:1.58;color:#586158}.payment-list b{color:#172019}.identity-note{margin-top:16px;padding:14px;border-radius:18px;background:#fff5e9;border:1px solid #f4d6b4;color:#6e4a28;font-size:11px;line-height:1.62;text-align:left}.identity-note b{display:block;margin-bottom:4px;color:#5c3819;font-size:12px}
     .course-image-wrap{height:auto;position:relative;overflow:hidden;cursor:zoom-in;background:#0e140f}
     .course-image-wrap img{display:block;width:100%;height:auto;aspect-ratio:2048/1535;object-fit:cover}
@@ -277,6 +287,17 @@
     .team-tip{margin-top:12px;padding:12px 14px;border-radius:16px;background:#f4f6ef;color:#6d756c;font-size:11px;line-height:1.6}
     .conditional.hidden{display:none!important}
 
+    .support-note{margin-top:12px;text-align:center;font-size:11px;font-weight:900;color:#5f685d;letter-spacing:.03em}
+    .support-note b{color:#111611}
+    .age-note{margin-top:10px;padding:12px 14px;border-radius:16px;background:#f3f6ec;border:1px solid #e0e6d4;font-size:11px;line-height:1.6;color:#5e665c}
+    .age-note b{color:#1a2418}
+    .safety-card{margin-top:18px;background:linear-gradient(180deg,#0f1411,#121813);color:#eef2ea;border-radius:30px;padding:20px;box-shadow:0 18px 36px rgba(0,0,0,.16)}
+    .safety-card h3{margin:8px 0 0;font-size:28px;line-height:1.05;letter-spacing:-.05em}
+    .safety-list{display:grid;gap:10px;margin-top:16px}
+    .safety-item{display:flex;gap:10px;align-items:flex-start;padding:12px;border-radius:18px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07)}
+    .safety-item i{width:26px;height:26px;border-radius:10px;display:grid;place-items:center;background:rgba(214,255,82,.12);color:var(--lime);font-style:normal;font-weight:1000;flex:0 0 auto}
+    .safety-item span{font-size:12px;line-height:1.58;color:#d5dad4}
+
     .receipt{border-radius:36px;padding:24px}
     .bottom-dock{padding:8px 12px max(10px,env(safe-area-inset-bottom))}
     .dock{height:68px;border-radius:26px;padding:6px}
@@ -307,18 +328,18 @@
   <main class="route active" data-route="home">
     <section class="hero">
       <div class="hero-inner">
-        <div class="hero-pill"><span class="live"></span><span id="ddayText">D-31 · 2026.10.14 · 연천종합운동장</span></div>
-        <div class="hero-kicker">제77회 국군의 날 기념</div>
-        <h1 class="hero-title">PHYSICAL<br><span class="ghost">CHALLENGE</span><br>RUNNING</h1>
-        <p class="hero-copy"><b>군 체력 기반 미션형 장애물 러닝.</b> 달리고, 넘고, 버티고, 완주하는 연천의 새로운 피지컬 챌린지.</p>
+        <div class="hero-pill"><span class="live"></span><span id="ddayText">2026.10.24 (토) · 선착순 200명</span></div>
+        <div class="hero-kicker">2026 제77회 국군의 날 기념</div>
+        <h1 class="hero-title">PHYSICAL<br><span class="ghost">CHALLENGE</span></h1>
+        <p class="hero-copy"><b>강한 정신력, 끝까지 도전하라!</b> 경기북부 군인과 지역 거주자가 함께하는 연천군 피지컬 챌린지.</p>
 
         <div class="hero-grid">
-          <div class="hero-data"><small>DATE</small><strong>2026.10.14</strong><p>12:00 집결 · 18:50 종료</p></div>
-          <div class="hero-data"><small>LOCATION</small><strong>연천종합운동장</strong><p>경기도 연천군 연천읍<br>문화로 150</p></div>
+          <div class="hero-data"><small>DATE</small><strong>2026.10.24</strong><p>토요일</p></div>
+          <div class="hero-data"><small>TARGET</small><strong>경기북부 군인<br>및 지역 거주자</strong><p>2006년생부터 신청 가능</p></div>
           <div class="hero-wide">
-            <div class="mini"><small>ENTRY SCALE</small><b>200명</b><span>여성 50명 · 남성 150명<br>선착순 마감</span></div>
-            <div class="mini"><small>OBSTACLES</small><b>8개</b><span>장애물 미션 코스</span></div>
-            <div class="mini wide"><small>ENTRY & BENEFIT</small><b>참가비 20,000원</b><span>푸드코트 이용권 1만원 제공<br>연천쌀 1kg 제공</span></div>
+            <div class="mini"><small>ENTRY SCALE</small><b>200명</b><span>여자 50명 · 남자 150명<br>선착순 마감</span></div>
+            <div class="mini"><small>EVENTS</small><b>2종목</b><span>장애물 릴레이<br>계주 4인 1조</span></div>
+            <div class="mini wide"><small>PARTICIPANT BENEFIT</small><b>연천쌀 1kg</b><span>참가자 전원 증정</span></div>
           </div>
         </div>
 
@@ -332,108 +353,128 @@
     <section class="section">
       <span class="eyebrow"><span class="dot"></span>EVENT SNAPSHOT</span>
       <h2 class="page-title">챌린지<br>핵심 정보.</h2>
-      <p class="page-desc">대회 일정, 참가 대상, 운영 방식, 참가 혜택과 시상 정보를 한눈에 확인하세요.</p>
+      <p class="page-desc">새 사업내용 기준 참가대상, 종목, 모집인원과 시상 정보를 확인하세요.</p>
 
       <div class="cards-2">
-        <article class="card soft"><small>TARGET</small><strong>연천군 내 군부대<br>소속 간부</strong><p>참가 대상 확인 필수</p></article>
-        <article class="card soft"><small>FORMAT</small><strong>개인전 +<br>계주 단체전</strong><p>2인 1조 출발 · 계주 운영 예정</p></article>
-        <article class="card soft"><small>CAPACITY</small><strong>여성 50명 ·<br>남성 150명</strong><p>성별 정원 선착순 마감</p></article>
-        <article class="card soft"><small>PARTICIPANT BENEFIT</small><strong>푸드코트 이용권<br>1만원 제공</strong><p>연천쌀 1kg 추가 제공</p></article>
+        <article class="card soft"><small>TARGET</small><strong>경기북부 군인 및<br>지역 거주자</strong><p>2006년생부터 신청 가능</p></article>
+        <article class="card soft"><small>FORMAT</small><strong>개인전 +<br>단체전</strong><p>장애물 릴레이 · 계주 4인 1조</p></article>
+        <article class="card soft"><small>CAPACITY</small><strong>여자 50명 ·<br>남자 150명</strong><p>총 200명 · 선착순 마감</p></article>
+        <article class="card soft"><small>PARTICIPANT BENEFIT</small><strong>연천쌀<br>1kg 증정</strong><p>참가자 전원 제공</p></article>
       </div>
 
       <article class="statement">
-        <b>WHY THIS EVENT</b>
-        <h3>평범한 체육대회가<br>아닙니다.</h3>
-        <p>달리고, 넘고, 버티며 완주하는 미션형 챌린지로 새로운 체력 경쟁을 경험하세요.</p>
+        <b>STRONGER TOGETHER</b>
+        <h3>함께를 넘어<br>더 강한 내일로!</h3>
+        <p>장애물 릴레이와 4인 계주를 통해 끝까지 도전하는 피지컬 챌린지를 경험하세요.</p>
       </article>
 
       <article class="accent-banner">
         <small>TOTAL PRIZE</small>
         <strong>₩3,000,000</strong>
-        <p>장애물 릴레이와 계주 단체전 우수 참가자를 시상합니다.</p>
+        <p>장애물 릴레이 남·여 및 계주 단체전 우수 참가자를 시상합니다.</p>
       </article>
 
-      <div class="footer-note"><b>2026 YEONCHEON PHYSICAL CHALLENGE RUNNING</b><br>제77회 국군의 날 기념 · 연천종합운동장 · 연천군체육회</div>
+      <div class="footer-note"><b>2026 YEONCHEON PHYSICAL CHALLENGE</b><br>제77회 국군의 날 기념 · 주최/주관 연천군체육회 · 문의 031-834-3100</div>
+      <div class="support-note"><b>경기도 재정지원</b></div>
     </section>
   </main>
 
   <main class="route" data-route="course">
     <section class="page-hero">
       <span class="eyebrow"><span class="dot"></span>COURSE & OBSTACLES</span>
-      <h2 class="page-title">8개의 장애물.<br>하나의 도전.</h2>
-      <p class="page-desc">START부터 FINISH까지 이어지는 8단계 장애물 코스를 한눈에 확인하세요.</p>
+      <h2 class="page-title">8개의 장애물.<br>끝까지 도전.</h2>
+      <p class="page-desc">코스 예상도와 계주 프로그램을 함께 확인하세요.</p>
 
       <article class="course-map">
         <div class="copy">
           <small>OBSTACLE COURSE</small>
-          <h3>장애물 코스</h3>
-          <p>경기장 전체 동선과 8단계 장애물 위치를 한 화면에서 확인할 수 있습니다.</p>
+          <h3>장애물코스 예상도</h3>
+          <p>포스터에 안내된 8개 장애물 구성을 확인할 수 있습니다.</p>
         </div>
         <div class="course-visual course-image-wrap" id="courseImageOpen" role="button" tabindex="0" aria-label="장애물 코스 확대 보기">
-          <img src="course-layout.webp" alt="2026 군 장애물 챌린지 8단계 장애물 코스" loading="eager" />
-          <div class="course-image-overlay"><span>장애물 코스</span><b>눌러서 확대 보기 ↗</b></div>
+          <img src="course-layout.webp" alt="2026 연천군 피지컬 챌린지 장애물코스 예상도" loading="eager" />
+          <div class="course-image-overlay"><span>장애물코스 예상도</span><b>눌러서 확대 보기 ↗</b></div>
+        </div>
+      </article>
+
+      <article class="relay-program-card">
+        <small>RELAY PROGRAM</small>
+        <h3>계주 프로그램</h3>
+        <p>트랙에서 진행되는 계주 종목 안내입니다.</p>
+        <div class="relay-program-chip">4×100m RELAY</div>
+        <div class="relay-program-visual">
+          <img src="relay-program.png" alt="4×100m 계주 프로그램 예시 이미지" loading="lazy" />
+          <div class="relay-program-caption">
+            <strong>계주 · 100m 4인1조</strong>
+            <span>남자 3명 / 여자 1명 구성으로 진행됩니다.</span>
+          </div>
         </div>
       </article>
 
       <article class="metric-panel">
         <span class="eyebrow"><span class="dot"></span>COURSE INFO</span>
-        <h3 style="margin:8px 0 0;font-size:27px;line-height:1.03;letter-spacing:-.05em;">코스 한눈에 보기.</h3>
+        <h3 style="margin:8px 0 0;font-size:30px;line-height:1.03;letter-spacing:-.055em;">코스 한눈에 보기.</h3>
         <p class="page-desc" style="margin-top:8px">코스 운영에 필요한 핵심 수치를 한눈에 확인하세요.</p>
         <div class="metric-grid">
           <div class="metric"><b>8</b><span>OBSTACLES</span></div>
-          <div class="metric"><b>120m</b><span>COURSE LENGTH</span></div>
-          <div class="metric"><b>2</b><span>PEOPLE / START</span></div>
-          <div class="metric"><b>U</b><span>COURSE SHAPE</span></div>
+          <div class="metric"><b>120m</b><span>COURSE<br>LENGTH</span></div>
+          <div class="metric"><b>2</b><span>PEOPLE /<br>START</span></div>
+          <div class="metric"><b>U</b><span>COURSE<br>SHAPE</span></div>
         </div>
       </article>
 
       <div class="obstacle-list">
         <article class="obstacle"><div class="obstacle-info"><div class="obstacle-num">01</div><h4>시소건너기</h4><p>균형감각과 집중력이 필요한 첫 번째 장애물입니다.</p><div class="chips"><span class="chip">BALANCE</span><span class="chip">FOCUS</span></div></div><div class="difficulty-box"><small>난이도</small><b>★</b></div></article>
-        <article class="obstacle"><div class="obstacle-info"><div class="obstacle-num">02</div><h4>원형터널 통과</h4><p>낮은 자세로 기어서 원형터널을 빠르게 통과합니다.</p><div class="chips"><span class="chip">CRAWL</span><span class="chip">AGILITY</span></div></div><div class="difficulty-box"><small>난이도</small><b>★★</b></div></article>
-        <article class="obstacle"><div class="obstacle-info"><div class="obstacle-num">03</div><h4>통나무 밟고 건너기</h4><p>점프력과 순발력을 활용해 통나무 구간을 통과합니다.</p><div class="chips"><span class="chip">JUMP</span><span class="chip">QUICKNESS</span></div></div><div class="difficulty-box"><small>난이도</small><b>★★</b></div></article>
-        <article class="obstacle"><div class="obstacle-info"><div class="obstacle-num">04</div><h4>그물장벽 넘기</h4><p>손발을 이용해 그물장벽을 넘으며 민첩성이 필요한 구간입니다.</p><div class="chips"><span class="chip">AGILITY</span><span class="chip">CLIMB</span></div></div><div class="difficulty-box"><small>난이도</small><b>★★★</b></div></article>
-        <article class="obstacle"><div class="obstacle-info"><div class="obstacle-num">05</div><h4>평균대 건너기</h4><p>균형감각을 유지하면서 빠르게 이동해야 하는 구간입니다.</p><div class="chips"><span class="chip">BALANCE</span><span class="chip">SPEED</span></div></div><div class="difficulty-box"><small>난이도</small><b>★★</b></div></article>
-        <article class="obstacle"><div class="obstacle-info"><div class="obstacle-num">06</div><h4>파이프 넘어가기</h4><p>전신근력과 유연성을 활용해 파이프 장애물을 넘어갑니다.</p><div class="chips"><span class="chip">STRENGTH</span><span class="chip">FLEXIBILITY</span></div></div><div class="difficulty-box"><small>난이도</small><b>★★★</b></div></article>
-        <article class="obstacle"><div class="obstacle-info"><div class="obstacle-num">07</div><h4>경사벽 넘기</h4><p>순발력과 민첩성을 집중적으로 요구하는 고난도 구간입니다.</p><div class="chips"><span class="chip">POWER</span><span class="chip">AGILITY</span></div></div><div class="difficulty-box"><small>난이도</small><b>★★★★</b></div></article>
-        <article class="obstacle"><div class="obstacle-info"><div class="obstacle-num">08</div><h4>몽키바</h4><p>상체근력과 지구력을 활용해 FINISH 직전 마지막 장애물을 통과합니다.</p><div class="chips"><span class="chip">UPPER BODY</span><span class="chip">ENDURANCE</span></div></div><div class="difficulty-box"><small>난이도</small><b>★★★★★</b></div></article>
+        <article class="obstacle"><div class="obstacle-info"><div class="obstacle-num">02</div><h4>원형터널통과</h4><p>낮은 자세로 몸을 낮춰 원형터널을 빠르게 통과합니다.</p><div class="chips"><span class="chip">CRAWL</span><span class="chip">SPEED</span></div></div><div class="difficulty-box"><small>난이도</small><b>★★</b></div></article>
+        <article class="obstacle"><div class="obstacle-info"><div class="obstacle-num">03</div><h4>통나무건너기</h4><p>통나무를 밟고 이동하며 순발력과 발의 정확성을 시험합니다.</p><div class="chips"><span class="chip">AGILITY</span><span class="chip">STEP</span></div></div><div class="difficulty-box"><small>난이도</small><b>★★</b></div></article>
+        <article class="obstacle"><div class="obstacle-info"><div class="obstacle-num">04</div><h4>그물망넘기</h4><p>손과 발을 함께 사용해 그물 장벽을 빠르고 안정적으로 넘어갑니다.</p><div class="chips"><span class="chip">CLIMB</span><span class="chip">AGILITY</span></div></div><div class="difficulty-box"><small>난이도</small><b>★★★</b></div></article>
+        <article class="obstacle"><div class="obstacle-info"><div class="obstacle-num">05</div><h4>평균대건너기</h4><p>좁은 평균대 위에서 중심을 유지하며 빠르게 이동해야 합니다.</p><div class="chips"><span class="chip">BALANCE</span><span class="chip">CONTROL</span></div></div><div class="difficulty-box"><small>난이도</small><b>★★</b></div></article>
+        <article class="obstacle"><div class="obstacle-info"><div class="obstacle-num">06</div><h4>파이프건너기</h4><p>연속된 파이프를 넘어가며 전신 근력과 유연성을 함께 사용합니다.</p><div class="chips"><span class="chip">POWER</span><span class="chip">FLEX</span></div></div><div class="difficulty-box"><small>난이도</small><b>★★★</b></div></article>
+        <article class="obstacle"><div class="obstacle-info"><div class="obstacle-num">07</div><h4>경사벽 넘기</h4><p>가속 후 경사벽을 올라 넘어야 하는 고난도 순발력 구간입니다.</p><div class="chips"><span class="chip">POWER</span><span class="chip">BURST</span></div></div><div class="difficulty-box"><small>난이도</small><b>★★★★</b></div></article>
+        <article class="obstacle"><div class="obstacle-info"><div class="obstacle-num">08</div><h4>몽키바</h4><p>상체 힘과 그립을 유지하며 끝까지 이동하는 마지막 장애물입니다.</p><div class="chips"><span class="chip">GRIP</span><span class="chip">ENDURANCE</span></div></div><div class="difficulty-box"><small>난이도</small><b>★★★★★</b></div></article>
       </div>
     </section>
   </main>
 
   <main class="route" data-route="schedule">
     <section class="page-hero">
-      <span class="eyebrow"><span class="dot"></span>SCHEDULE & PRIZE</span>
-      <h2 class="page-title">하루 동안<br>진행되는 챌린지.</h2>
-      <p class="page-desc">선수 등록부터 경기, 시상식까지 당일 일정을 확인하세요.</p>
+      <span class="eyebrow"><span class="dot"></span>EVENT & PRIZE</span>
+      <h2 class="page-title">10월 24일,<br>도전의 날.</h2>
+      <p class="page-desc">2026년 10월 24일(토) 개최. 시상내역은 새 포스터 기준으로 안내합니다.</p>
+
+      <article class="accent-banner" style="margin-top:18px">
+        <small>EVENT DATE</small>
+        <strong>2026.10.24 SAT</strong>
+        <p>경기북부 군인 및 지역 거주자 · 2006년생부터 신청 가능 · 총 200명 선착순</p>
+      </article>
 
       <div class="timeline">
         <div class="timeline-item"><div class="time">12:00</div><div class="time-card"><b>선수 집결 및 출석 확인</b><p>등록데스크 운영 · 선수 등록</p></div></div>
-        <div class="timeline-item"><div class="time">12:20</div><div class="time-card"><b>개회식</b><p>행사 취지 설명 · 내빈 소개 및 축사</p></div></div>
-        <div class="timeline-item"><div class="time">12:35</div><div class="time-card"><b>안전교육 및 몸풀기</b><p>코스 안내 · 계주 안내 · 스트레칭 진행</p></div></div>
-        <div class="timeline-item"><div class="time">12:55</div><div class="time-card"><b>장애물 경기 운영</b><p>참가팀 순차 진행 · 팀별 기록 운영</p></div></div>
-        <div class="timeline-item"><div class="time">16:00</div><div class="time-card"><b>계주 정렬 및 안전 안내</b><p>팀 구성 확인 · 경기장 정리</p></div></div>
-        <div class="timeline-item"><div class="time">17:20</div><div class="time-card"><b>계주 경기</b><p>4인 1조 · 총 8팀 · 32명</p></div></div>
-        <div class="timeline-item"><div class="time">17:50</div><div class="time-card"><b>경기결과 발표 및 시상식</b><p>개인전 및 단체전 시상 예정</p></div></div>
-        <div class="timeline-item"><div class="time">18:20</div><div class="time-card"><b>행사 종료 및 철수</b><p>18:50 최종 마무리 예정</p></div></div>
+        <div class="timeline-item"><div class="time">12:20</div><div class="time-card"><b>안전교육 및 몸풀기</b><p>코스 안내 · 계주 안내 · 스트레칭 진행</p></div></div>
+        <div class="timeline-item"><div class="time">12:35</div><div class="time-card"><b>장애물 경기 운영</b><p>참가팀 순차 진행 · 팀별 기록 운영</p></div></div>
+        <div class="timeline-item"><div class="time">12:55</div><div class="time-card"><b>계주 정렬 및 안전 안내</b><p>팀 구성 확인 · 경기장 정리</p></div></div>
+        <div class="timeline-item"><div class="time">16:00</div><div class="time-card"><b>계주 경기</b><p>4인 1조 · 총 8팀 · 32명</p></div></div>
+        <div class="timeline-item"><div class="time">17:20</div><div class="time-card"><b>경기결과 발표 및 시상식</b><p>개인전 및 단체전 시상 예정</p></div></div>
+        <div class="timeline-item"><div class="time">17:50</div><div class="time-card"><b>행사 종료 및 철수</b><p>18:50 최종 마무리 예정</p></div></div>
       </div>
 
       <div class="prize-grid">
         <article class="prize-card">
           <div class="prize-head"><span>장애물 릴레이 · 남자</span><span class="badge">MEN</span></div>
-          <div class="rank"><div class="rank-left">1위<small>1명</small></div><div class="rank-right"><b>500,000원</b><small>+ 연천군수상표창</small></div></div>
-          <div class="rank"><div class="rank-left">2위<small>1명</small></div><div class="rank-right"><b>400,000원</b><small>+ 연천군의장상표창</small></div></div>
+          <div class="rank"><div class="rank-left">1위<small>1명</small></div><div class="rank-right"><b>500,000원</b><small>+ 연천군수 표창</small></div></div>
+          <div class="rank"><div class="rank-left">2위<small>1명</small></div><div class="rank-right"><b>400,000원</b><small>+ 연천군의장 표창</small></div></div>
           <div class="rank"><div class="rank-left">3위<small>1명</small></div><div class="rank-right"><b>300,000원</b><small>+ 연천군체육회장상</small></div></div>
         </article>
         <article class="prize-card">
           <div class="prize-head"><span>장애물 릴레이 · 여자</span><span class="badge">WOMEN</span></div>
-          <div class="rank"><div class="rank-left">1위<small>1명</small></div><div class="rank-right"><b>500,000원</b><small>+ 연천군수상표창</small></div></div>
-          <div class="rank"><div class="rank-left">2위<small>1명</small></div><div class="rank-right"><b>400,000원</b><small>+ 연천군의장상표창</small></div></div>
+          <div class="rank"><div class="rank-left">1위<small>1명</small></div><div class="rank-right"><b>500,000원</b><small>+ 연천군수 표창</small></div></div>
+          <div class="rank"><div class="rank-left">2위<small>1명</small></div><div class="rank-right"><b>400,000원</b><small>+ 연천군의장 표창</small></div></div>
           <div class="rank"><div class="rank-left">3위<small>1명</small></div><div class="rank-right"><b>300,000원</b><small>+ 연천군체육회장상</small></div></div>
         </article>
         <article class="prize-card">
-          <div class="prize-head"><span>계주 단체전</span><span class="badge">TEAM</span></div>
-          <div class="rank"><div class="rank-left">1위<small>1팀 · 4명</small></div><div class="rank-right"><b>400,000원</b></div></div>
-          <div class="rank"><div class="rank-left">2위<small>1팀 · 4명</small></div><div class="rank-right"><b>200,000원</b></div></div>
+          <div class="prize-head"><span>계주 단체전 · 4인 1조</span><span class="badge">TEAM</span></div>
+          <div class="rank"><div class="rank-left">1위<small>남자 3 · 여자 1</small></div><div class="rank-right"><b>400,000원</b></div></div>
+          <div class="rank"><div class="rank-left">2위<small>남자 3 · 여자 1</small></div><div class="rank-right"><b>200,000원</b></div></div>
         </article>
         <div class="prize-total"><span>TOTAL PRIZE</span><b>₩3,000,000</b></div>
       </div>
@@ -442,60 +483,41 @@
 
   <main class="route" data-route="guide">
     <section class="page-hero">
-      <span class="eyebrow"><span class="dot"></span>GUIDE & SAFETY</span>
+      <span class="eyebrow"><span class="dot"></span>EVENT GUIDE</span>
       <h2 class="page-title">안전은 철저하게.<br>운영은 명확하게.</h2>
-      <p class="page-desc">안전관리, 경기장 위치, 참가 전 확인사항을 안내합니다.</p>
+      <p class="page-desc">참가대상과 운영 기준, 현장 안전 운영 내용을 함께 확인하세요.</p>
 
       <article class="guide-card">
-        <span class="eyebrow" style="color:var(--lime)"><span class="dot" style="background:var(--lime);box-shadow:0 0 0 5px rgba(214,255,82,.1)"></span>SAFETY FIRST</span>
-        <h3>도전은 과감하게,<br>안전은 철저하게.</h3>
+        <span class="eyebrow" style="color:var(--lime)"><span class="dot" style="background:var(--lime);box-shadow:0 0 0 5px rgba(214,255,82,.1)"></span>ENTRY GUIDE</span>
+        <h3>누구나가 아니라,<br>대상에 맞게.</h3>
         <div class="guide-list">
-          <div class="guide-item"><i>✓</i><span>주최자배상책임공제 가입</span></div>
-          <div class="guide-item"><i>✓</i><span>구급차 및 응급의료 인력 현장 배치</span></div>
-          <div class="guide-item"><i>✓</i><span>종목별 난이도 구분 및 경기 전 안전교육 실시</span></div>
-          <div class="guide-item"><i>✓</i><span>장애물 구간 안전요원 배치 및 현장 통제</span></div>
-          <div class="guide-item"><i>✓</i><span>사고 발생 시 대응체계 운영</span></div>
-        </div>
-      </article>
-
-      <article class="location-card">
-        <div class="map-visual">
-          <svg viewBox="0 0 394 208" xmlns="http://www.w3.org/2000/svg">
-            <rect width="394" height="208" fill="#e9f0df"/>
-            <g fill="none" stroke="#d0dbc5" stroke-width="8">
-              <path d="M-20 50 C84 95 134 20 238 58 S338 120 430 76"/>
-              <path d="M48 -20 C90 46 56 102 126 144 S188 190 198 230"/>
-              <path d="M278 -20 C270 36 300 74 284 118 S252 174 260 228"/>
-            </g>
-            <g fill="none" stroke="#fbfcf8" stroke-width="3">
-              <path d="M-20 50 C84 95 134 20 238 58 S338 120 430 76"/>
-              <path d="M48 -20 C90 46 56 102 126 144 S188 190 198 230"/>
-              <path d="M278 -20 C270 36 300 74 284 118 S252 174 260 228"/>
-            </g>
-            <circle cx="210" cy="102" r="40" fill="#101611" opacity=".08"/>
-            <path d="M210 70c-17 0-31 14-31 31 0 22 31 53 31 53s31-31 31-53c0-17-14-31-31-31zm0 41a10 10 0 1 1 0-20 10 10 0 0 1 0 20z" fill="#111611"/>
-            <circle cx="210" cy="85" r="10" fill="#ff6e2f"/>
-            <text x="20" y="24" fill="#7f887d" font-size="10" font-weight="900" letter-spacing="2">YEONCHEON STADIUM</text>
-          </svg>
-        </div>
-        <div class="location-copy">
-          <small>LOCATION</small>
-          <h3>연천종합운동장</h3>
-          <p>경기도 연천군 연천읍 문화로 150</p>
-          <div class="quick-btns">
-            <button class="soft-btn" id="mapBtn">지도에서 보기</button>
-            <button class="soft-btn" id="calendarBtnGuide">일정 저장</button>
-          </div>
+          <div class="guide-item"><i>1</i><span><b>참가대상</b><br>경기북부 군인 및 지역 거주자 (2006년생부터 신청 가능)</span></div>
+          <div class="guide-item"><i>2</i><span><b>모집인원</b><br>여자 50명 · 남자 150명 · 총 200명 선착순</span></div>
+          <div class="guide-item"><i>3</i><span><b>개인전</b><br>장애물 릴레이</span></div>
+          <div class="guide-item"><i>4</i><span><b>단체전</b><br>계주 4인 1조 · 남자 3명 + 여자 1명</span></div>
+          <div class="guide-item"><i>✓</i><span><b>참가자 혜택</b><br>참가자 전원 연천쌀 1kg 증정</span></div>
         </div>
       </article>
 
       <div style="margin-top:16px">
-        <details><summary>누가 참가할 수 있나요?</summary><p>연천군 내 군부대 소속 간부가 참가할 수 있습니다. 신청 시 소속 간부 확인에 동의해야 하며, 행사 당일 신분 확인이 진행됩니다.</p></details>
-        <details><summary>참가비는 얼마인가요?</summary><p>참가비는 1종목당 20,000원입니다. 개인전과 계주를 각각 신청하는 경우 총 40,000원이며, 푸드코트 이용권 10,000원과 연천쌀 1kg이 제공됩니다.</p></details>
-        <details><summary>코스는 어떻게 안내되나요?</summary><p>장애물 코스를 통해 전체 동선을 확인할 수 있으며, 세부 운영 안내는 경기 전 공지됩니다.</p></details>
-        <details><summary>계주는 어떻게 신청하나요?</summary><p>계주를 선택하면 4명의 참가자 정보를 한 번에 입력해 팀 단위로 신청할 수 있습니다.</p></details>
-        <details><summary>문의는 어디로 하나요?</summary><p>연천군체육회 대표번호 031-834-3100을 문의 연락처로 사용할 수 있습니다.</p></details>
+        <details><summary>누가 참가할 수 있나요?</summary><p>경기북부 군인 및 지역 거주자이며 2006년생부터 신청할 수 있습니다.</p></details>
+        <details><summary>계주 팀 구성은 어떻게 되나요?</summary><p>계주 단체전은 4인 1조이며 남자 3명, 여자 1명으로 구성합니다.</p></details>
+        <details><summary>모집인원은 몇 명인가요?</summary><p>여자 50명, 남자 150명으로 총 200명이며 선착순 마감입니다.</p></details>
+        <details><summary>참가자 혜택은 무엇인가요?</summary><p>참가자 전원에게 연천쌀 1kg이 증정됩니다.</p></details>
+        <details><summary>문의는 어디로 하나요?</summary><p>연천군체육회 031-834-3100으로 문의해주세요.</p></details>
       </div>
+
+      <article class="safety-card">
+        <span class="eyebrow" style="color:var(--lime)"><span class="dot" style="background:var(--lime);box-shadow:0 0 0 5px rgba(214,255,82,.1)"></span>SAFETY SYSTEM</span>
+        <h3>안전 운영 체크포인트</h3>
+        <div class="safety-list">
+          <div class="safety-item"><i>✓</i><span>주최자배상책임공제 가입</span></div>
+          <div class="safety-item"><i>✓</i><span>구급차 및 응급의료 인력 현장 배치</span></div>
+          <div class="safety-item"><i>✓</i><span>종목별 난이도 구분 및 경기 전 안전교육 실기</span></div>
+          <div class="safety-item"><i>✓</i><span>장애물 구간 안전요원 배치 및 현장 통제</span></div>
+          <div class="safety-item"><i>✓</i><span>사고 발생 시 대응체계 운영</span></div>
+        </div>
+      </article>
     </section>
   </main>
 
@@ -503,22 +525,26 @@
     <section class="page-hero">
       <span class="eyebrow"><span class="dot"></span>REGISTRATION</span>
       <h2 class="page-title">참가 신청을<br>바로 시작하세요.</h2>
-      <p class="page-desc">개인전 또는 4인 계주를 선택하고 참가 정보를 입력해주세요. 접수가 완료되면 고유 접수번호가 발급됩니다.</p>
+      <p class="page-desc">개인전 장애물 릴레이 또는 단체전 계주 4인 1조를 선택하고 참가 정보를 입력해주세요. (2006년생부터 신청 가능)</p>
+    </section>
+
+    <section class="section" style="padding-top:0;padding-bottom:0">
+      <div class="age-note"><b>신청 가능 기준</b><br>대상자는 경기북부 군인 및 지역 거주자이며, 2006년생부터 신청 가능합니다.</div>
     </section>
 
     <section class="form-wrap">
-      <div class="progress" id="progressBar"><span class="on"></span><span></span><span></span><span></span></div>
+      <div class="progress" id="progressBar"><span class="on"></span><span></span><span></span></div>
       <div class="form-card" id="formCard">
         <form id="applyForm" novalidate>
           <div class="form-step" data-step="1">
             <h3>01. 참가 방식 선택</h3>
             <p class="helper">참가할 종목을 선택해주세요.</p>
             <div class="choice-grid">
-              <button type="button" class="choice active" data-type="개인전"><b>개인전</b><span>1인 신청<br>개별 접수</span></button>
-              <button type="button" class="choice" data-type="계주"><b>계주</b><span>4인 1팀<br>팀 단위 신청</span></button>
+              <button type="button" class="choice active" data-type="개인전"><b>개인전</b><span>장애물 릴레이<br>1인 신청</span></button>
+              <button type="button" class="choice" data-type="계주"><b>단체전</b><span>계주 4인 1조<br>남자 3 · 여자 1</span></button>
             </div>
             <input type="hidden" id="entryType" name="entryType" value="개인전" />
-            <div class="notice">참가비는 1인 20,000원이며 푸드코트 이용권 10,000원과 연천쌀 1kg이 제공됩니다. 납부 및 참가 확정 방법은 접수 후 별도 안내됩니다.</div>
+            <div class="notice">참가대상은 경기북부 군인 및 지역 거주자이며, 참가자 전원에게 연천쌀 1kg이 증정됩니다.</div>
             <div class="form-actions" style="grid-template-columns:1fr"><button type="button" class="btn-submit nextStep">다음</button></div>
           </div>
 
@@ -527,85 +553,71 @@
             <p class="helper" id="step2Helper">개인전 참가자 정보를 입력해주세요.</p>
 
             <div id="individualFields" class="conditional">
-              <div class="row2"><div class="field"><label for="p1Name">이름 *</label><input class="input" id="p1Name" placeholder="홍길동" autocomplete="name" /></div><div class="field"><label for="p1Rank">계급 *</label><input class="input" id="p1Rank" placeholder="예: 중사 / 대위" /></div></div>
-              <div class="row2"><div class="field"><label for="p1Gender">성별 *</label><select class="input" id="p1Gender"><option value="">선택</option><option value="남성">남성</option><option value="여성">여성</option></select></div><div class="field"><label for="p1Birth">생년월일 *</label><input class="input" id="p1Birth" type="date" /></div></div>
-              <div class="field"><label for="p1Affiliation">소속 부대 / 기관 *</label><input class="input" id="p1Affiliation" placeholder="예: ○○사단 ○○대대 / ○○부대" /></div>
-              <div class="field"><label for="p1Department">세부 소속</label><input class="input" id="p1Department" placeholder="예: ○○중대 / ○○부서 (선택)" /></div>
-              <div class="field"><label for="p1Phone">휴대폰 번호 *</label><input class="input phone-input" id="p1Phone" inputmode="tel" autocomplete="tel" placeholder="010-0000-0000" /></div>
+              <article class="member-card" style="padding:0;border:0;box-shadow:none;background:transparent">
+                  <div class="member-head" style="display:none"><b>참가자</b><span class="member-no">01</span></div>
+                  <div class="field"><label for="p1Name">이름 *</label><input class="input" id="p1Name" placeholder="참가자 이름" autocomplete="name" /></div>
+                  <div class="row2"><div class="field"><label for="p1Type">참가자 구분 *</label><select class="input participant-type" id="p1Type"><option value="">선택</option><option value="군인">군인</option><option value="지역 거주자">지역 거주자</option></select></div><div class="field"><label for="p1Gender">성별 *</label><select class="input" id="p1Gender"><option value="">선택</option><option value="남성">남성</option><option value="여성">여성</option></select></div></div>
+                  <div class="field"><label for="p1Birth">생년월일 *</label><input class="input" id="p1Birth" type="date" /></div>
+                  <div class="field"><label for="p1Affiliation">소속 부대 / 거주지역 *</label><input class="input" id="p1Affiliation" placeholder="군인: 소속 부대 / 지역 거주자: 거주지역" /></div>
+                  <div class="field"><label for="p1Phone">휴대폰 번호 *</label><input class="input phone-input" id="p1Phone" inputmode="tel" placeholder="010-0000-0000" /></div>
+                </article>
             </div>
 
             <div id="relayFields" class="conditional hidden">
               <div class="team-meta">
                 <div class="team-meta-title">팀 정보</div>
                 <div class="field"><label for="teamName">팀명 *</label><input class="input" id="teamName" placeholder="예: TEAM ALPHA" /></div>
-                <div class="field"><label for="relayGroupType">참가 구분 *</label><select class="input" id="relayGroupType"><option value="">선택</option><option value="일반 참가">일반 참가</option><option value="팀 대표(주장)">팀 대표(주장)</option></select><span class="field-caption">팀 접수 담당자의 참가 구분을 선택해주세요.</span></div>
+                <span class="field-caption">계주 단체전은 남자 3명 + 여자 1명으로 구성해야 합니다.</span>
               </div>
               <div class="member-list">
                 <article class="member-card">
                   <div class="member-head"><b>참가자 1</b><span class="member-no">01</span></div>
-                  <div class="row2"><div class="field"><label for="r1Name">이름 *</label><input class="input" id="r1Name" placeholder="참가자 이름" /></div><div class="field"><label for="r1Rank">계급 *</label><input class="input" id="r1Rank" placeholder="예: 중사 / 대위" /></div></div>
-                  <div class="row2"><div class="field"><label for="r1Gender">성별 *</label><select class="input" id="r1Gender"><option value="">선택</option><option value="남성">남성</option><option value="여성">여성</option></select></div><div class="field"><label for="r1Birth">생년월일 *</label><input class="input" id="r1Birth" type="date" /></div></div>
-                  <div class="field"><label for="r1Affiliation">소속 부대 / 기관 *</label><input class="input" id="r1Affiliation" placeholder="소속 부대 / 기관" /></div>
-                  <div class="field"><label for="r1Department">세부 소속</label><input class="input" id="r1Department" placeholder="중대 / 부서 (선택)" /></div>
+                  <div class="field"><label for="r1Name">이름 *</label><input class="input" id="r1Name" placeholder="참가자 이름" /></div>
+                  <div class="row2"><div class="field"><label for="r1Type">참가자 구분 *</label><select class="input participant-type" id="r1Type"><option value="">선택</option><option value="군인">군인</option><option value="지역 거주자">지역 거주자</option></select></div><div class="field"><label for="r1Gender">성별 *</label><select class="input" id="r1Gender"><option value="">선택</option><option value="남성">남성</option><option value="여성">여성</option></select></div></div>
+                  <div class="field"><label for="r1Birth">생년월일 *</label><input class="input" id="r1Birth" type="date" /></div>
+                  <div class="field"><label for="r1Affiliation">소속 부대 / 거주지역 *</label><input class="input" id="r1Affiliation" placeholder="군인: 소속 부대 / 지역 거주자: 거주지역" /></div>
                   <div class="field"><label for="r1Phone">휴대폰 번호 *</label><input class="input phone-input" id="r1Phone" inputmode="tel" placeholder="010-0000-0000" /></div>
                 </article>
                 <article class="member-card">
                   <div class="member-head"><b>참가자 2</b><span class="member-no">02</span></div>
-                  <div class="row2"><div class="field"><label for="r2Name">이름 *</label><input class="input" id="r2Name" placeholder="참가자 이름" /></div><div class="field"><label for="r2Rank">계급 *</label><input class="input" id="r2Rank" placeholder="예: 중사 / 대위" /></div></div>
-                  <div class="row2"><div class="field"><label for="r2Gender">성별 *</label><select class="input" id="r2Gender"><option value="">선택</option><option value="남성">남성</option><option value="여성">여성</option></select></div><div class="field"><label for="r2Birth">생년월일 *</label><input class="input" id="r2Birth" type="date" /></div></div>
-                  <div class="field"><label for="r2Affiliation">소속 부대 / 기관 *</label><input class="input" id="r2Affiliation" placeholder="소속 부대 / 기관" /></div>
-                  <div class="field"><label for="r2Department">세부 소속</label><input class="input" id="r2Department" placeholder="중대 / 부서 (선택)" /></div>
+                  <div class="field"><label for="r2Name">이름 *</label><input class="input" id="r2Name" placeholder="참가자 이름" /></div>
+                  <div class="row2"><div class="field"><label for="r2Type">참가자 구분 *</label><select class="input participant-type" id="r2Type"><option value="">선택</option><option value="군인">군인</option><option value="지역 거주자">지역 거주자</option></select></div><div class="field"><label for="r2Gender">성별 *</label><select class="input" id="r2Gender"><option value="">선택</option><option value="남성">남성</option><option value="여성">여성</option></select></div></div>
+                  <div class="field"><label for="r2Birth">생년월일 *</label><input class="input" id="r2Birth" type="date" /></div>
+                  <div class="field"><label for="r2Affiliation">소속 부대 / 거주지역 *</label><input class="input" id="r2Affiliation" placeholder="군인: 소속 부대 / 지역 거주자: 거주지역" /></div>
                   <div class="field"><label for="r2Phone">휴대폰 번호 *</label><input class="input phone-input" id="r2Phone" inputmode="tel" placeholder="010-0000-0000" /></div>
                 </article>
                 <article class="member-card">
                   <div class="member-head"><b>참가자 3</b><span class="member-no">03</span></div>
-                  <div class="row2"><div class="field"><label for="r3Name">이름 *</label><input class="input" id="r3Name" placeholder="참가자 이름" /></div><div class="field"><label for="r3Rank">계급 *</label><input class="input" id="r3Rank" placeholder="예: 중사 / 대위" /></div></div>
-                  <div class="row2"><div class="field"><label for="r3Gender">성별 *</label><select class="input" id="r3Gender"><option value="">선택</option><option value="남성">남성</option><option value="여성">여성</option></select></div><div class="field"><label for="r3Birth">생년월일 *</label><input class="input" id="r3Birth" type="date" /></div></div>
-                  <div class="field"><label for="r3Affiliation">소속 부대 / 기관 *</label><input class="input" id="r3Affiliation" placeholder="소속 부대 / 기관" /></div>
-                  <div class="field"><label for="r3Department">세부 소속</label><input class="input" id="r3Department" placeholder="중대 / 부서 (선택)" /></div>
+                  <div class="field"><label for="r3Name">이름 *</label><input class="input" id="r3Name" placeholder="참가자 이름" /></div>
+                  <div class="row2"><div class="field"><label for="r3Type">참가자 구분 *</label><select class="input participant-type" id="r3Type"><option value="">선택</option><option value="군인">군인</option><option value="지역 거주자">지역 거주자</option></select></div><div class="field"><label for="r3Gender">성별 *</label><select class="input" id="r3Gender"><option value="">선택</option><option value="남성">남성</option><option value="여성">여성</option></select></div></div>
+                  <div class="field"><label for="r3Birth">생년월일 *</label><input class="input" id="r3Birth" type="date" /></div>
+                  <div class="field"><label for="r3Affiliation">소속 부대 / 거주지역 *</label><input class="input" id="r3Affiliation" placeholder="군인: 소속 부대 / 지역 거주자: 거주지역" /></div>
                   <div class="field"><label for="r3Phone">휴대폰 번호 *</label><input class="input phone-input" id="r3Phone" inputmode="tel" placeholder="010-0000-0000" /></div>
                 </article>
                 <article class="member-card">
                   <div class="member-head"><b>참가자 4</b><span class="member-no">04</span></div>
-                  <div class="row2"><div class="field"><label for="r4Name">이름 *</label><input class="input" id="r4Name" placeholder="참가자 이름" /></div><div class="field"><label for="r4Rank">계급 *</label><input class="input" id="r4Rank" placeholder="예: 중사 / 대위" /></div></div>
-                  <div class="row2"><div class="field"><label for="r4Gender">성별 *</label><select class="input" id="r4Gender"><option value="">선택</option><option value="남성">남성</option><option value="여성">여성</option></select></div><div class="field"><label for="r4Birth">생년월일 *</label><input class="input" id="r4Birth" type="date" /></div></div>
-                  <div class="field"><label for="r4Affiliation">소속 부대 / 기관 *</label><input class="input" id="r4Affiliation" placeholder="소속 부대 / 기관" /></div>
-                  <div class="field"><label for="r4Department">세부 소속</label><input class="input" id="r4Department" placeholder="중대 / 부서 (선택)" /></div>
+                  <div class="field"><label for="r4Name">이름 *</label><input class="input" id="r4Name" placeholder="참가자 이름" /></div>
+                  <div class="row2"><div class="field"><label for="r4Type">참가자 구분 *</label><select class="input participant-type" id="r4Type"><option value="">선택</option><option value="군인">군인</option><option value="지역 거주자">지역 거주자</option></select></div><div class="field"><label for="r4Gender">성별 *</label><select class="input" id="r4Gender"><option value="">선택</option><option value="남성">남성</option><option value="여성">여성</option></select></div></div>
+                  <div class="field"><label for="r4Birth">생년월일 *</label><input class="input" id="r4Birth" type="date" /></div>
+                  <div class="field"><label for="r4Affiliation">소속 부대 / 거주지역 *</label><input class="input" id="r4Affiliation" placeholder="군인: 소속 부대 / 지역 거주자: 거주지역" /></div>
                   <div class="field"><label for="r4Phone">휴대폰 번호 *</label><input class="input phone-input" id="r4Phone" inputmode="tel" placeholder="010-0000-0000" /></div>
                 </article>
               </div>
-              <div class="team-tip">계주 신청은 4명의 참가자 정보를 모두 입력해야 접수가 가능합니다.</div>
+              <div class="team-tip">4명의 참가자 정보를 모두 입력해야 하며, 성별 구성은 남자 3명 + 여자 1명이어야 합니다.</div>
             </div>
 
-            <div class="entry-note"><span>선택한 참가 방식</span><b id="entryTypeLabel">개인전</b></div>
+            <div class="entry-note"><span>선택한 참가 방식</span><b id="entryTypeLabel">개인전 · 장애물 릴레이</b></div>
             <div class="form-actions"><button type="button" class="btn-ghost prevStep">이전</button><button type="button" class="btn-submit nextStep">다음</button></div>
           </div>
 
           <div class="form-step hidden" data-step="3">
-            <h3>03. 동의 및 확인</h3>
+            <h3>03. 동의 및 제출</h3>
             <p class="helper">필수 동의 항목과 참가 자격을 확인해주세요.</p>
-            <div class="agree"><input type="checkbox" id="agreePrivacy" required /><label for="agreePrivacy"><b>개인정보 수집·이용에 동의합니다.</b><br>참가자 확인, 안내 연락, 보험 및 안전 운영을 위한 정보 수집·이용에 동의합니다.</label></div>
-            <div class="agree"><input type="checkbox" id="agreeSafety" required /><label for="agreeSafety"><b>안전수칙 및 운영 안내에 동의합니다.</b><br>경기 전 안전교육에 참여하고 현장 통제 및 운영요원 안내를 준수합니다.</label></div>
-            <div class="agree"><input type="checkbox" id="agreeNotice" required /><label for="agreeNotice"><b>최종 공지 및 운영 기준을 확인합니다.</b><br>세부 일정과 참가 확정 내용은 공식 안내를 통해 확인합니다.</label></div>
-            <div class="agree"><input type="checkbox" id="agreeOfficer" required /><label for="agreeOfficer"><b>본인은 현재 연천군 내 군부대 소속 간부임을 확인합니다.</b><br>행사 당일 공무원증 또는 밀리패스 등 신분 확인 자료를 지참합니다.</label></div>
-            <div class="notice" id="submitModeNotice">입력한 내용과 참가 자격을 확인한 뒤 참가비 입금 안내로 이동해주세요.</div>
-            <div class="form-actions"><button type="button" class="btn-ghost prevStep">이전</button><button type="button" class="btn-submit nextStep">다음</button></div>
-          </div>
-
-          <div class="form-step hidden" data-step="4">
-            <h3>04. 참가비 입금</h3>
-            <p class="helper">신청 제출 전 참가비와 입금 정보를 확인해주세요.</p>
-            <div class="payment-card">
-              <small>ENTRY FEE</small>
-              <h4>1종목당 20,000원</h4>
-              <div class="payment-account"><span>입금계좌</span><b>신협 135-000-128981<br>예금주 시니어스포츠산업진흥원</b></div>
-            </div>
-            <div class="payment-list">
-              <div><b>입금자명</b> · 참가자 성명 + 휴대폰번호 뒷자리<br>예) 홍길동1234</div>
-              <div><b>2종목 신청 시</b> · 개인전 + 계주 각각 20,000원, 총 40,000원</div>
-              <div><b>입금 확인 필수</b> · 입금 확인 후 최종 참가 확정 처리됩니다.</div>
-              <div><b>환불 안내</b> · 참가비 입금 후 환불은 불가합니다.</div>
-            </div>
+            <div class="agree"><input type="checkbox" id="agreePrivacy" required /><label for="agreePrivacy"><b>개인정보 수집·이용에 동의합니다.</b><br>참가자 확인과 대회 운영 안내를 위한 정보 수집·이용에 동의합니다.</label></div>
+            <div class="agree"><input type="checkbox" id="agreeSafety" required /><label for="agreeSafety"><b>안전수칙 및 운영 안내를 준수합니다.</b><br>현장 운영요원의 안내와 경기 운영 기준을 따릅니다.</label></div>
+            <div class="agree"><input type="checkbox" id="agreeNotice" required /><label for="agreeNotice"><b>최종 공지 및 운영 기준을 확인합니다.</b><br>대회 관련 세부 안내와 변경사항을 확인합니다.</label></div>
+            <div class="agree"><input type="checkbox" id="agreeEligibility" required /><label for="agreeEligibility"><b>본인은 참가대상에 해당함을 확인합니다.</b><br>경기북부 군인 또는 지역 거주자로 신청합니다.</label></div>
+            <div class="notice" id="submitModeNotice">입력한 내용을 확인한 뒤 신청을 완료해주세요. 정원과 접수 상태는 자동으로 확인됩니다.</div>
             <div class="submit-error hidden" id="submitError" role="alert"></div>
             <div class="form-actions"><button type="button" class="btn-ghost prevStep">이전</button><button type="submit" class="btn-submit" id="submitBtn">신청 완료하기</button></div>
           </div>
@@ -613,7 +625,6 @@
       </div>
     </section>
   </main>
-
 
   <main class="route" data-route="complete">
     <section class="complete-wrap">
@@ -630,17 +641,10 @@
 
         <div class="complete-summary">
           <div><span>참가 종목</span><b id="completeEntryType">개인전</b></div>
-          <div><span>이번 신청 참가비</span><b>20,000원</b></div>
+          <div><span>참가자 혜택</span><b>연천쌀 1kg</b></div>
         </div>
 
-        <div class="complete-payment">
-          <small>PAYMENT ACCOUNT</small>
-          <h3>신협 135-000-128981</h3>
-          <p>예금주 <b>시니어스포츠산업진흥원</b></p>
-          <div class="complete-payment-note">입금자명: 성명 + 휴대폰번호 뒷자리 · 입금 후 환불 불가</div>
-        </div>
-
-        <div class="identity-note"><b>행사 당일 신분 확인 안내</b>군인 간부 신분 확인을 위해 공무원증 또는 밀리패스를 지참해주시기 바랍니다. 신분 확인이 불가능한 경우 참가가 제한될 수 있습니다.</div>
+        <div class="identity-note"><b>신청 완료 안내</b>접수번호를 확인해주세요. 대회 관련 세부 운영내용과 변경사항은 공식 안내를 통해 확인해주시기 바랍니다.</div>
 
         <button class="btn-primary complete-home-btn" id="completeHomeBtn">홈으로 돌아가기</button>
       </article>
@@ -650,8 +654,8 @@
   <div class="image-modal" id="courseImageModal" aria-hidden="true">
     <div class="image-modal-card">
       <button class="modal-close" id="courseImageClose" aria-label="닫기">×</button>
-      <img src="course-layout.webp" alt="2026 군 장애물 챌린지 장애물 코스 확대 이미지" />
-      <div class="modal-caption">2026 군 장애물 챌린지 · 장애물 코스</div>
+      <img src="course-layout.webp" alt="2026 연천군 피지컬 챌린지 장애물코스 예상도 확대 이미지" />
+      <div class="modal-caption">2026 연천군 피지컬 챌린지 · 장애물코스 예상도</div>
     </div>
   </div>
 
@@ -673,12 +677,12 @@
 <script>
   const CONFIG = {
     googleAppsScriptUrl: "https://script.google.com/macros/s/AKfycbymrE4_6Dqm2M7PRdeiYHJwZro0UCom_70dpggqBiDckyjmmWg0xXEvW8p0YC2gb_sC/exec",
-    eventDate: "2026-10-14T12:00:00+09:00",
-    eventEnd: "2026-10-14T18:50:00+09:00",
-    localStorageKey: "yc2026_physical_challenge_submissions_v21",
-    pendingStorageKey: "yc2026_physical_challenge_pending_v21",
-    completionStorageKey: "yc2026_physical_challenge_completion_v21",
-    clientVersion: "v21"
+    eventDate: "2026-10-24T00:00:00+09:00",
+    eventEnd: "2026-10-25T00:00:00+09:00",
+    localStorageKey: "yc2026_physical_challenge_submissions_v28",
+    pendingStorageKey: "yc2026_physical_challenge_pending_v28",
+    completionStorageKey: "yc2026_physical_challenge_completion_v22",
+    clientVersion: "v28"
   };
 
   const $ = (s, root=document) => root.querySelector(s);
@@ -690,9 +694,9 @@
     const now = new Date();
     const event = new Date(CONFIG.eventDate);
     const diff = Math.ceil((event - now) / (1000*60*60*24));
-    let text = '2026.10.14 · 연천종합운동장';
-    if(diff > 0) text = `D-${diff} · 2026.10.14 · 연천종합운동장`;
-    else if(diff === 0) text = `D-DAY · 2026.10.14 · 연천종합운동장`;
+    let text = '2026.10.24 (토) · 선착순 200명';
+    if(diff > 0) text = `D-${diff} · 2026.10.24 (토) · 선착순 200명`;
+    else if(diff === 0) text = `D-DAY · 2026.10.24 (토) · 선착순 200명`;
     $('#ddayText').textContent = text;
   }
   updateDDay();
@@ -719,8 +723,8 @@
     $('#completeRegistrationId').textContent = data.registrationId || '접수번호 확인 필요';
     $('#completeEntryType').textContent = data.entryType || '-';
     $('#completeMessage').textContent = data.idempotent
-      ? '기존 접수 내역을 확인했습니다. 아래 접수번호와 입금 정보를 확인해주세요.'
-      : '참가 신청이 정상적으로 접수되었습니다. 아래 접수번호와 입금 정보를 확인해주세요.';
+      ? '기존 접수 내역을 확인했습니다. 아래 접수번호를 확인해주세요.'
+      : '참가 신청이 정상적으로 접수되었습니다. 아래 접수번호를 확인해주세요.';
   }
 
   function route(){
@@ -742,7 +746,7 @@
   $('#submitModeNotice').textContent = '입력한 내용을 확인한 뒤 신청을 완료해주세요. 정원과 접수 상태는 자동으로 확인됩니다.';
 
   $('#shareBtn').addEventListener('click', async () => {
-    const data = {title: document.title, text: '2026 연천군 Physical Challenge Running', url: location.href};
+    const data = {title: document.title, text: '2026 제77회 국군의 날 기념 연천군 피지컬 챌린지', url: location.href};
     try{
       if(navigator.share) await navigator.share(data);
       else { await navigator.clipboard.writeText(location.href); toast('링크를 복사했습니다.'); }
@@ -752,15 +756,13 @@
   function pad(n){ return String(n).padStart(2,'0'); }
   function toIcsLocal(d){ return d.getFullYear()+pad(d.getMonth()+1)+pad(d.getDate())+'T'+pad(d.getHours())+pad(d.getMinutes())+'00'; }
   function downloadCalendar(){
-    const start = new Date(CONFIG.eventDate), end = new Date(CONFIG.eventEnd);
     const ics = [
       'BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Yeoncheon Physical Challenge//KO','BEGIN:VEVENT',
       'UID:yc-physical-challenge-2026@event',
-      `DTSTART;TZID=Asia/Seoul:${toIcsLocal(start)}`,
-      `DTEND;TZID=Asia/Seoul:${toIcsLocal(end)}`,
-      'SUMMARY:2026 연천군 Physical Challenge Running',
-      'LOCATION:연천종합운동장\\, 경기도 연천군 연천읍 문화로 150',
-      'DESCRIPTION:제77회 국군의 날 기념 2026 연천군 Physical Challenge Running',
+      'DTSTART;VALUE=DATE:20261024',
+      'DTEND;VALUE=DATE:20261025',
+      'SUMMARY:2026 제77회 국군의 날 기념 연천군 피지컬 챌린지',
+      'DESCRIPTION:경기북부 군인 및 지역 거주자 대상 연천군 피지컬 챌린지',
       'END:VEVENT','END:VCALENDAR'
     ].join('\r\n');
     const blob = new Blob([ics], {type:'text/calendar;charset=utf-8'});
@@ -772,11 +774,6 @@
     toast('일정 파일을 만들었습니다.');
   }
   $('#calendarBtnHero').addEventListener('click', downloadCalendar);
-  $('#calendarBtnGuide').addEventListener('click', downloadCalendar);
-  $('#mapBtn').addEventListener('click', () => {
-    const q = encodeURIComponent('연천종합운동장 경기도 연천군 연천읍 문화로 150');
-    window.open(`https://map.naver.com/p/search/${q}`, '_blank', 'noopener');
-  });
 
 
   const courseImageOpen = $('#courseImageOpen');
@@ -802,8 +799,8 @@
     const relay = currentEntryType() === '계주';
     $('#individualFields').classList.toggle('hidden', relay);
     $('#relayFields').classList.toggle('hidden', !relay);
-    $('#step2Helper').textContent = relay ? '4명의 참가자 정보와 팀 정보를 입력해주세요.' : '개인전 참가자 정보를 입력해주세요.';
-    $('#entryTypeLabel').textContent = relay ? '계주 · 4인 1팀' : '개인전';
+    $('#step2Helper').textContent = relay ? '4명의 참가자 정보와 팀 정보를 입력해주세요. 남자 3명 + 여자 1명 구성입니다.' : '개인전 장애물 릴레이 참가자 정보를 입력해주세요.';
+    $('#entryTypeLabel').textContent = relay ? '단체전 · 계주 4인 1조' : '개인전 · 장애물 릴레이';
   }
   function showStep(step){
     currentStep = step;
@@ -828,24 +825,35 @@
     if(el.value.replace(/\D/g,'').length < 10){ el.focus(); toast('휴대폰 번호를 확인해주세요.'); return false; }
     return true;
   }
+  function validBirthEligibility(id){
+    const el = $('#'+id);
+    if(!el) return false;
+    if(!/^\d{4}-\d{2}-\d{2}$/.test(el.value)){ el.focus(); toast('생년월일을 확인해주세요.'); return false; }
+    const year = Number(el.value.slice(0,4));
+    if(year > 2006){ el.focus(); toast('2006년생부터 신청 가능합니다.'); return false; }
+    return true;
+  }
+  function validateParticipant(prefix, label){
+    for(const field of ['Name','Type','Gender','Birth','Affiliation','Phone']){
+      if(!requiredValue(`${prefix}${field}`, `${label}의 필수 정보를 입력해주세요.`)) return false;
+    }
+    if(!validBirthEligibility(`${prefix}Birth`)) return false;
+    if(!validPhone(`${prefix}Phone`)) return false;
+    return true;
+  }
   function validateStep2(){
-    if(currentEntryType() === '개인전'){
-      for(const id of ['p1Name','p1Rank','p1Gender','p1Birth','p1Affiliation','p1Phone']) if(!requiredValue(id)) return false;
-      return validPhone('p1Phone');
-    }
-    if(!requiredValue('teamName')) return false;
-    if(!requiredValue('relayGroupType','참가 구분을 선택해주세요.')) return false;
-    for(let i=1;i<=4;i++){
-      for(const field of ['Name','Rank','Gender','Birth','Affiliation','Phone']){
-        if(!requiredValue(`r${i}${field}`, `참가자 ${i}의 필수 정보를 입력해주세요.`)) return false;
-      }
-      if(!validPhone(`r${i}Phone`)) return false;
-    }
+    if(currentEntryType() === '개인전') return validateParticipant('p1','참가자');
+    if(!requiredValue('teamName','팀명을 입력해주세요.')) return false;
+    for(let i=1;i<=4;i++) if(!validateParticipant(`r${i}`, `참가자 ${i}`)) return false;
+    const genders = [1,2,3,4].map(i => $(`#r${i}Gender`).value);
+    const male = genders.filter(x => x === '남성').length;
+    const female = genders.filter(x => x === '여성').length;
+    if(male !== 3 || female !== 1){ toast('계주 단체전은 남자 3명 + 여자 1명으로 구성해야 합니다.'); return false; }
     return true;
   }
   $$('.nextStep').forEach(btn => btn.addEventListener('click', () => {
     if(currentStep === 2 && !validateStep2()) return;
-    showStep(Math.min(4, currentStep + 1));
+    showStep(Math.min(3, currentStep + 1));
   }));
   $$('.prevStep').forEach(btn => btn.addEventListener('click', () => showStep(Math.max(1, currentStep - 1))));
   $$('.phone-input').forEach(el => el.addEventListener('input', e => { e.target.value = formatPhoneValue(e.target.value); }));
@@ -853,11 +861,10 @@
   function participantFrom(prefix){
     return {
       name: $(`#${prefix}Name`)?.value.trim() || '',
-      rank: $(`#${prefix}Rank`)?.value.trim() || '',
+      participantType: $(`#${prefix}Type`)?.value || '',
       gender: $(`#${prefix}Gender`)?.value || '',
       birth: $(`#${prefix}Birth`)?.value || '',
       affiliation: $(`#${prefix}Affiliation`)?.value.trim() || '',
-      department: $(`#${prefix}Department`)?.value.trim() || '',
       phone: $(`#${prefix}Phone`)?.value.trim() || ''
     };
   }
@@ -1031,7 +1038,7 @@
     e.preventDefault();
     hideSubmitError();
     if(!validateStep2()) return;
-    if(!$('#agreePrivacy').checked || !$('#agreeSafety').checked || !$('#agreeNotice').checked || !$('#agreeOfficer').checked){
+    if(!$('#agreePrivacy').checked || !$('#agreeSafety').checked || !$('#agreeNotice').checked || !$('#agreeEligibility').checked){
       toast('동의 항목을 모두 확인해주세요.');
       return;
     }
@@ -1052,13 +1059,13 @@
     const record = {
       clientSubmittedAt:new Date().toISOString(),
       entryType:currentEntryType(),
-      groupType:relay ? $('#relayGroupType').value : '',
+      groupType:'',
       teamName:relay ? $('#teamName').value.trim() : '',
-      p1Name:participants[0].name||'', p1Rank:participants[0].rank||'', p1Gender:participants[0].gender||'', p1Birth:participants[0].birth||'', p1Affiliation:participants[0].affiliation||'', p1Department:participants[0].department||'', p1Phone:participants[0].phone||'',
-      p2Name:participants[1].name||'', p2Rank:participants[1].rank||'', p2Gender:participants[1].gender||'', p2Birth:participants[1].birth||'', p2Affiliation:participants[1].affiliation||'', p2Department:participants[1].department||'', p2Phone:participants[1].phone||'',
-      p3Name:participants[2].name||'', p3Rank:participants[2].rank||'', p3Gender:participants[2].gender||'', p3Birth:participants[2].birth||'', p3Affiliation:participants[2].affiliation||'', p3Department:participants[2].department||'', p3Phone:participants[2].phone||'',
-      p4Name:participants[3].name||'', p4Rank:participants[3].rank||'', p4Gender:participants[3].gender||'', p4Birth:participants[3].birth||'', p4Affiliation:participants[3].affiliation||'', p4Department:participants[3].department||'', p4Phone:participants[3].phone||'',
-      privacyConsent:'Y', safetyConsent:'Y', noticeConsent:'Y', officerConsent:'Y'
+      p1Name:participants[0].name||'', p1Type:participants[0].participantType||'', p1Gender:participants[0].gender||'', p1Birth:participants[0].birth||'', p1Affiliation:participants[0].affiliation||'', p1Phone:participants[0].phone||'',
+      p2Name:participants[1].name||'', p2Type:participants[1].participantType||'', p2Gender:participants[1].gender||'', p2Birth:participants[1].birth||'', p2Affiliation:participants[1].affiliation||'', p2Phone:participants[1].phone||'',
+      p3Name:participants[2].name||'', p3Type:participants[2].participantType||'', p3Gender:participants[2].gender||'', p3Birth:participants[2].birth||'', p3Affiliation:participants[2].affiliation||'', p3Phone:participants[2].phone||'',
+      p4Name:participants[3].name||'', p4Type:participants[3].participantType||'', p4Gender:participants[3].gender||'', p4Birth:participants[3].birth||'', p4Affiliation:participants[3].affiliation||'', p4Phone:participants[3].phone||'',
+      privacyConsent:'Y', safetyConsent:'Y', noticeConsent:'Y', eligibilityConsent:'Y'
     };
 
     const requestId = getPendingRequestId(record);
@@ -1075,8 +1082,6 @@
         clearPendingRequest();
         showSubmitError(server.message || err.message);
       }else{
-        // A timeout may happen after the server already stored the application.
-        // Keep the same requestId so a retry is idempotent.
         showSubmitError(err.message || '접수 중 통신 오류가 발생했습니다. 다시 시도해주세요.');
       }
     }finally{
