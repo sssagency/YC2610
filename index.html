@@ -298,6 +298,26 @@
     .safety-item i{width:26px;height:26px;border-radius:10px;display:grid;place-items:center;background:rgba(214,255,82,.12);color:var(--lime);font-style:normal;font-weight:1000;flex:0 0 auto}
     .safety-item span{font-size:12px;line-height:1.58;color:#d5dad4}
 
+    /* v29 dermaFIT promotion popup */
+    body.promo-open{overflow:hidden}
+    .promo-modal{position:fixed;inset:0;z-index:220;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(0,0,0,.72);backdrop-filter:blur(8px)}
+    .promo-modal.show{display:flex}
+    .promo-dialog{position:relative;width:min(400px,100%);max-height:calc(100dvh - 36px);display:flex;flex-direction:column;overflow:hidden;border-radius:28px;background:#0b0b0b;box-shadow:0 28px 80px rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.12)}
+    .promo-close{position:absolute;right:10px;top:10px;z-index:3;width:38px;height:38px;border:0;border-radius:999px;background:rgba(0,0,0,.62);color:#fff;display:grid;place-items:center;font-size:22px;line-height:1;backdrop-filter:blur(8px);box-shadow:0 8px 20px rgba(0,0,0,.22)}
+    .promo-image-link{display:block;text-decoration:none;color:inherit;cursor:pointer}
+    .promo-image-wrap{overflow:auto;background:#050505;position:relative}
+    .promo-image{display:block;width:100%;height:auto}
+    .promo-image-wrap:after{content:"상품 보러가기 →";position:absolute;right:12px;bottom:12px;padding:8px 11px;border-radius:999px;background:rgba(0,0,0,.72);border:1px solid rgba(255,255,255,.16);color:#fff;font-size:10px;font-weight:900;letter-spacing:-.02em;backdrop-filter:blur(6px);pointer-events:none}
+    .promo-footer{display:grid;grid-template-columns:1fr 1.25fr;gap:8px;padding:10px;background:#111;border-top:1px solid rgba(255,255,255,.1)}
+    .promo-footer button{min-height:48px;border:0;border-radius:15px;font-size:12px;font-weight:900;letter-spacing:-.02em}
+    .promo-close-btn{background:#242424;color:#e8e8e8}
+    .promo-hide-btn{background:#ff6a1a;color:#111}
+    @media (max-width:390px){
+      .promo-modal{padding:12px}
+      .promo-dialog{max-height:calc(100dvh - 24px);border-radius:24px}
+      .promo-footer{grid-template-columns:1fr}
+    }
+
     .receipt{border-radius:36px;padding:24px}
     .bottom-dock{padding:8px 12px max(10px,env(safe-area-inset-bottom))}
     .dock{height:68px;border-radius:26px;padding:6px}
@@ -339,7 +359,7 @@
           <div class="hero-wide">
             <div class="mini"><small>ENTRY SCALE</small><b>200명</b><span>여자 50명 · 남자 150명<br>선착순 마감</span></div>
             <div class="mini"><small>EVENTS</small><b>2종목</b><span>장애물 릴레이<br>계주 4인 1조</span></div>
-            <div class="mini wide"><small>PARTICIPANT BENEFIT</small><b>연천쌀 1kg</b><span>참가자 전원 증정</span></div>
+            <div class="mini wide"><small>PARTICIPANT BENEFIT</small><b>연천쌀 1kg + 더마핏 크림</b><span>참가자 전원 제공</span></div>
           </div>
         </div>
 
@@ -359,7 +379,7 @@
         <article class="card soft"><small>TARGET</small><strong>경기북부 군인 및<br>지역 거주자</strong><p>2006년생부터 신청 가능</p></article>
         <article class="card soft"><small>FORMAT</small><strong>개인전 +<br>단체전</strong><p>장애물 릴레이 · 계주 4인 1조</p></article>
         <article class="card soft"><small>CAPACITY</small><strong>여자 50명 ·<br>남자 150명</strong><p>총 200명 · 선착순 마감</p></article>
-        <article class="card soft"><small>PARTICIPANT BENEFIT</small><strong>연천쌀<br>1kg 증정</strong><p>참가자 전원 제공</p></article>
+        <article class="card soft"><small>PARTICIPANT BENEFIT</small><strong>연천쌀 1kg +<br>더마핏 크림</strong><p>참가자 전원 제공</p></article>
       </div>
 
       <article class="statement">
@@ -495,7 +515,7 @@
           <div class="guide-item"><i>2</i><span><b>모집인원</b><br>여자 50명 · 남자 150명 · 총 200명 선착순</span></div>
           <div class="guide-item"><i>3</i><span><b>개인전</b><br>장애물 릴레이</span></div>
           <div class="guide-item"><i>4</i><span><b>단체전</b><br>계주 4인 1조 · 남자 3명 + 여자 1명</span></div>
-          <div class="guide-item"><i>✓</i><span><b>참가자 혜택</b><br>참가자 전원 연천쌀 1kg 증정</span></div>
+          <div class="guide-item"><i>✓</i><span><b>참가자 혜택</b><br>참가자 전원 연천쌀 1kg + 더마핏 크림 제공</span></div>
         </div>
       </article>
 
@@ -503,7 +523,7 @@
         <details><summary>누가 참가할 수 있나요?</summary><p>경기북부 군인 및 지역 거주자이며 2006년생부터 신청할 수 있습니다.</p></details>
         <details><summary>계주 팀 구성은 어떻게 되나요?</summary><p>계주 단체전은 4인 1조이며 남자 3명, 여자 1명으로 구성합니다.</p></details>
         <details><summary>모집인원은 몇 명인가요?</summary><p>여자 50명, 남자 150명으로 총 200명이며 선착순 마감입니다.</p></details>
-        <details><summary>참가자 혜택은 무엇인가요?</summary><p>참가자 전원에게 연천쌀 1kg이 증정됩니다.</p></details>
+        <details><summary>참가자 혜택은 무엇인가요?</summary><p>참가자 전원에게 연천쌀 1kg과 더마핏 크림이 제공됩니다.</p></details>
         <details><summary>문의는 어디로 하나요?</summary><p>연천군체육회 031-834-3100으로 문의해주세요.</p></details>
       </div>
 
@@ -544,7 +564,7 @@
               <button type="button" class="choice" data-type="계주"><b>단체전</b><span>계주 4인 1조<br>남자 3 · 여자 1</span></button>
             </div>
             <input type="hidden" id="entryType" name="entryType" value="개인전" />
-            <div class="notice">참가대상은 경기북부 군인 및 지역 거주자이며, 참가자 전원에게 연천쌀 1kg이 증정됩니다.</div>
+            <div class="notice">참가대상은 경기북부 군인 및 지역 거주자이며, 참가자 전원에게 연천쌀 1kg과 더마핏 크림이 제공됩니다.</div>
             <div class="form-actions" style="grid-template-columns:1fr"><button type="button" class="btn-submit nextStep">다음</button></div>
           </div>
 
@@ -641,7 +661,7 @@
 
         <div class="complete-summary">
           <div><span>참가 종목</span><b id="completeEntryType">개인전</b></div>
-          <div><span>참가자 혜택</span><b>연천쌀 1kg</b></div>
+          <div><span>참가자 혜택</span><b>연천쌀 1kg + 더마핏 크림</b></div>
         </div>
 
         <div class="identity-note"><b>신청 완료 안내</b>접수번호를 확인해주세요. 대회 관련 세부 운영내용과 변경사항은 공식 안내를 통해 확인해주시기 바랍니다.</div>
@@ -670,7 +690,24 @@
   </nav>
 </div>
 
+
+<div class="promo-modal" id="dermafitPromo" aria-hidden="true">
+  <div class="promo-dialog" role="dialog" aria-modal="true" aria-label="더마핏 크림 무료 제공 안내">
+    <button type="button" class="promo-close" id="promoTopClose" aria-label="팝업 닫기">×</button>
+    <a class="promo-image-link" href="https://smartstore.naver.com/dermafit" target="_blank" rel="noopener noreferrer" aria-label="더마핏 스마트스토어 새 창에서 열기">
+      <div class="promo-image-wrap">
+        <img class="promo-image" src="dermafit-popup.png" alt="참가자 혜택 더마핏 크림 무료 제공" />
+      </div>
+    </a>
+    <div class="promo-footer">
+      <button type="button" class="promo-close-btn" id="promoCloseBtn">닫기</button>
+      <button type="button" class="promo-hide-btn" id="promoHide24Btn">24시간 동안 보지 않기</button>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast">완료되었습니다.</div>
+
 <iframe id="gasResultFrame" name="gasResultFrame" title="접수 처리" style="display:none;width:0;height:0;border:0"></iframe>
 <iframe id="gasStatusFrame" name="gasStatusFrame" title="접수 상태 확인" style="display:none;width:0;height:0;border:0"></iframe>
 
@@ -679,10 +716,11 @@
     googleAppsScriptUrl: "https://script.google.com/macros/s/AKfycbymrE4_6Dqm2M7PRdeiYHJwZro0UCom_70dpggqBiDckyjmmWg0xXEvW8p0YC2gb_sC/exec",
     eventDate: "2026-10-24T00:00:00+09:00",
     eventEnd: "2026-10-25T00:00:00+09:00",
-    localStorageKey: "yc2026_physical_challenge_submissions_v28",
-    pendingStorageKey: "yc2026_physical_challenge_pending_v28",
+    localStorageKey: "yc2026_physical_challenge_submissions_v31",
+    pendingStorageKey: "yc2026_physical_challenge_pending_v31",
     completionStorageKey: "yc2026_physical_challenge_completion_v22",
-    clientVersion: "v28"
+    promoHideStorageKey: "yc2026_dermafit_promo_hide_until",
+    clientVersion: "v31"
   };
 
   const $ = (s, root=document) => root.querySelector(s);
@@ -1091,6 +1129,60 @@
   });
 
   $('#completeHomeBtn').addEventListener('click', () => { try{ sessionStorage.removeItem(CONFIG.completionStorageKey); }catch(e){} location.hash = '#home'; });
+
+  // v29: dermaFIT 참가자 혜택 팝업
+  (function initDermafitPromo(){
+    const modal = $('#dermafitPromo');
+    const closeTop = $('#promoTopClose');
+    const closeBtn = $('#promoCloseBtn');
+    const hide24Btn = $('#promoHide24Btn');
+    if(!modal || !closeTop || !closeBtn || !hide24Btn) return;
+
+    const HIDE_MS = 24 * 60 * 60 * 1000;
+
+    function getHideUntil(){
+      try{
+        return Number(localStorage.getItem(CONFIG.promoHideStorageKey) || 0);
+      }catch(e){
+        return 0;
+      }
+    }
+
+    function openPromo(){
+      if(Date.now() < getHideUntil()) return;
+      modal.classList.add('show');
+      modal.setAttribute('aria-hidden','false');
+      document.body.classList.add('promo-open');
+    }
+
+    function closePromo(){
+      modal.classList.remove('show');
+      modal.setAttribute('aria-hidden','true');
+      document.body.classList.remove('promo-open');
+    }
+
+    function hideFor24Hours(){
+      try{
+        localStorage.setItem(CONFIG.promoHideStorageKey, String(Date.now() + HIDE_MS));
+      }catch(e){}
+      closePromo();
+    }
+
+    closeTop.addEventListener('click', closePromo);
+    closeBtn.addEventListener('click', closePromo);
+    hide24Btn.addEventListener('click', hideFor24Hours);
+
+    modal.addEventListener('click', (e) => {
+      if(e.target === modal) closePromo();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if(e.key === 'Escape' && modal.classList.contains('show')) closePromo();
+    });
+
+    // 첫 화면이 그려진 뒤 자연스럽게 노출
+    window.setTimeout(openPromo, 450);
+  })();
 </script>
 </body>
 </html>
